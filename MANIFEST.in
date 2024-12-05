@@ -1,0 +1,2 @@
+include versioneer.py
+include src/ff_mission_dashboard/_version.py

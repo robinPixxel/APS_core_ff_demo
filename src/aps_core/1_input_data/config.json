@@ -1,0 +1,37 @@
+
+{   "csv_file_path":{"gs_pass_opportunity":"1_input_data/GS_Passes_new (1).csv",
+                    "image_capture_opportunity":"1_input_data/Imaging_new (1) copy.csv",
+                    "image_downlink_file":"1_input_data/APS_imageTable_TV1.csv"},
+    "constraints":{"Thermal_constraints_GS_pass":false,          
+                   "overlapping_constraints":true,
+                   "active_assured_strip_id_constraint":false,
+                   "power_constraints":true,
+                  "memory_constrant":true,
+                  "thermal_constraint_readout":false,
+                  "thermal_constraint_imaging":false},
+    
+    "objective":{"GS_Pass_time":true,
+                 "total_priority":false,
+                "total_readout_memory":false},
+                
+    "thermal_parameters":{
+                          "cameraDetector_heat_eqn":  "0.0000039805 * t**3 - 0.0020476 * t**2 + 0.4473 *t + 0.5265",
+                          "cameraDetector_cool_eqn" : "-0.00000047625 * t**3 + 0.000579 * t**2 - 0.24 * t -3.43",
+                          "XBT_heat_eqn" : "-0.0000001075462963 * t**3 + 0.000061 * t**2  - 0.04186666667*t -1.964",
+                          "XBT_cool_eqn" :"-0.00059386 * t**3 + 0.051754 * t**2 - 1.6882*t + 1.4488",
+                          "NCCM_heat_eqn": "0.0000000728690314 * t**3 - 0.000138692964 * t**2 + 0.103057817 * t  + 1.88504399 ",
+                          "NCCM_cool_eqn" : "-0.34 * t**3 "       
+                          },
+  "scheduled_Hrs":12,
+  "downlink_schedule_OnlyJustsortImgID":true,
+  "GP_weight":0.4,
+  "DDLP_weight":0.2,
+  "CCLP_weight":0.1,
+  "ONLP_weight":0.3,
+  "min_readout_time_seconds":50,
+  "base_time_stamp": "2024-07-01 05:59:59",
+  "base_time_stamp_downlink": "2024-07-01 05:59:59"
+  
+  }
+
+

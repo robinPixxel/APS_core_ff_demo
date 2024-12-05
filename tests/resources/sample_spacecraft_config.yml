@@ -1,0 +1,87 @@
+#FIREFLY 1
+originator: "Pixxel"
+mission: "FF01"
+
+spacecraft_parameters:
+    name: 'Firefly_1'
+    norad_id: 91691 # KSAT assigned
+    mass: 50.02 # kg
+    min_visibility_elevation: 5.0 #deg
+
+tle_parameters:
+    classification: "U"
+    launch_year : 2024
+    launch_number: 14
+    launch_piece: "H"
+    ephemeris_type: 0 # DEFAULT
+    element_number: 0
+
+orbital_parameters:
+  semimajor_axis: 6943.432 #km
+  mean_altitude: 565.295 #km
+  inclination: 97.652 #deg
+  eccentricity: 0.00106
+  raan: -71.972783 #deg
+  period: 5765.332 #sec
+
+
+imaging_parameters:
+  max_offnadir : 20 # deg
+  max_length: 500. #km
+  trigger_interval: 7.0e-4
+  quat_body2cam: [0.7055250757429985, -0.0102042385418456,  0.0054122797088059, -0.7085908186266394]
+  los_axis : [0., 0., 1.0]
+  ascending: False
+  camera_parameters:
+      EFL: 0.605
+      pixel_pitch: 5.5e-6
+      half_angle_across_track: 2.1 #deg
+      half_angle_along_track: 0.125 #deg
+  tiling_parameters:
+    overlap_percentage: 2.
+    tessellation_resolution: 2500. # in meters
+
+integrator_config:
+  min_step: 0.001
+  max_step: 300
+  pos_error: 10  # in meters
+
+forces:
+  gravity_harmonics:
+    bodies:
+      earth:
+        enable: True
+        model: 'eigen-6s'
+        degree: 100
+        order: 100
+      moon:
+        enable: False
+        model: 'GL0660B'
+        degree: 10
+        order: 10
+  tides: # Can't include this from here without updating MDA-CORE
+    enable: True
+    step_time: 30
+    number_of_points: 10
+    order: 10
+    degree: 10
+    pole_tides: False
+    solid_tides: False
+    ocean_tides: True
+  third_bodies:
+    enable: True
+    bodies:
+      - sun
+      - moon
+      - mars
+      - jupiter
+  drag:
+    enable: True
+    cd: 2.2
+    area: 0.8
+    activity: 'AVERAGE'
+  srp:
+    enable: True
+    area: 0.8
+    reflection: 1.8
+    # absorption: 1

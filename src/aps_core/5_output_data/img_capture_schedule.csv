@@ -1,0 +1,116 @@
+SatID,start_time,end_time,encoded_strip_id,gsID,operation,camera_memory_value_endofTW,delta_camera_memory_value_in_this_TW,SSD_memory_value_endofTW,delta_SSD_memory_value_in_this_TW,global_priority,local_priority,mean_global_priority,mean_local_priority,StripID,AoiID,base_time
+FF02,91539.0,91540.0,no_i_no_g,no_i_no_g,Readout,131.20000000000755,-0.7999999999924512,350.8000000000062,0.8000000000062073,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,113553.0,113554.0,no_i_no_g,no_i_no_g,Readout,774.4000000000192,-0.7999999999884722,351.59999999999974,0.7999999999937586,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,122957.00000000001,123508.25,no_i_no_g,no_i_no_g,Readout,34.0,-440.99999999999994,440.9999999999912,440.9999999999912,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,134587.0,134779.5,no_i_no_g,no_i_no_g,Readout,433.00000000000006,-153.99999999999994,504.0,154.00000000000023,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,150278.0,150279.0,no_i_no_g,no_i_no_g,Readout,773.6000000000213,-0.7999999999979082,352.4000000000038,0.8000000000040473,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,166441.0,166442.0,no_i_no_g,no_i_no_g,Readout,954.8000000000095,-0.800000000011778,353.19999999999214,0.7999999999883585,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,89594.0,89610.0,Order 57 - Strip 0_Area 36,,Imaging,132.0,112.0,NA,NA,1000.0,2002.468247449225,1000.0,2002.468247449225,Order 57 - Strip 0,Area 36,2024-11-13 12:30:44
+FF02,91482.0,91498.0,Order 53 - Strip 3_Area 36,,Imaging,132.0,112.0,NA,NA,1000.0,1029.3479669366313,1000.0,1029.3479669366313,Order 53 - Strip 3,Area 36,2024-11-13 12:30:44
+FF01,95314.0,95330.0,Order 30 - Strip 0_Area 27,,Imaging,243.99999999999997,112.0,NA,NA,1000.0,771.4161434844327,1000.0,771.4161434844327,Order 30 - Strip 0,Area 27,2024-11-13 12:30:44
+FF02,102364.0,102380.0,Order 14 - Strip 3_Area 18,,Imaging,243.20000000000755,112.0,NA,NA,1000.0,766.9400916707901,1000.0,766.9400916707901,Order 14 - Strip 3,Area 18,2024-11-13 12:30:44
+FF03,104261.0,104278.0,Order 18 - Strip 1_Area 18,,Imaging,139.0,119.0,NA,NA,1000.0,968.1029005123494,1000.0,968.1029005123494,Order 18 - Strip 1,Area 18,2024-11-13 12:30:44
+FF02,107731.0,107756.0,Order 44 - Strip 3_Area 35,,Imaging,418.20000000000755,175.0,NA,NA,750.0,962.8824056400784,750.0,939.6478291729554,Order 44 - Strip 3,Area 35,2024-11-13 12:30:44
+FF02,107955.0,107971.0,Order 4 - Strip 3_Area 0,,Imaging,530.2000000000075,112.0,NA,NA,750.0,1057.4442629414064,750.0,1057.4442629414064,Order 4 - Strip 3,Area 0,2024-11-13 12:30:44
+FF03,109611.0,109630.0,Order 48 - Strip 1_Area 35,,Imaging,272.0,133.0,NA,NA,750.0,1041.762411167273,750.0,1041.762411167273,Order 48 - Strip 1,Area 35,2024-11-13 12:30:44
+FF03,109826.0,109843.0,Order 0 - Strip 4_Area 0,,Imaging,391.0,119.0,NA,NA,750.0,987.3657945316769,750.0,987.3657945316769,Order 0 - Strip 4,Area 0,2024-11-13 12:30:44
+FF01,111535.0,111569.0,Order 47 - Strip 5_Area 35,,Imaging,481.9999999999999,238.0,NA,NA,750.0,993.6559038403361,750.0,993.6559038403361,Order 47 - Strip 5,Area 35,2024-11-13 12:30:44
+FF01,111784.0,111799.0,Order 67 - Strip 0_Area 6,,Imaging,586.9999999999999,105.0,NA,NA,1000.0,1254.8525472528938,1000.0,1254.8525472528938,Order 67 - Strip 0,Area 6,2024-11-13 12:30:44
+FF02,113500.0,113535.0,Order 46 - Strip 3_Area 35,,Imaging,775.2000000000077,245.0,NA,NA,750.0,1113.2878493754374,750.0,1113.2878493754374,Order 46 - Strip 3,Area 35,2024-11-13 12:30:44
+FF03,115465.0,115477.0,Order 45 - Strip 0_Area 35,,Imaging,474.99999999999994,84.0,NA,NA,750.0,924.8039935075045,750.0,924.8039935075045,Order 45 - Strip 0,Area 35,2024-11-13 12:30:44
+FF03,134418.0,134442.0,Order 20 - Strip 3_Area 20,,Imaging,202.0,168.0,NA,NA,1000.0,760.5948410398593,1000.0,760.5948410398593,Order 20 - Strip 3,Area 20,2024-11-13 12:30:44
+FF01,136480.0,136496.0,Order 22 - Strip 3_Area 21,,Imaging,545.0,112.0,NA,NA,1000.0,813.3771337628243,1000.0,813.3771337628243,Order 22 - Strip 3,Area 21,2024-11-13 12:30:44
+FF03,145354.0,145371.0,Order 65 - Strip 2_Area 37,,Imaging,321.0,119.0,NA,NA,1000.0,1029.068420541374,1000.0,1029.068420541374,Order 65 - Strip 2,Area 37,2024-11-13 12:30:44
+FF01,147302.0,147318.0,Order 64 - Strip 3_Area 37,,Imaging,657.0000000000001,112.0,NA,NA,1000.0,779.7722973085488,1000.0,779.7722973085488,Order 64 - Strip 3,Area 37,2024-11-13 12:30:44
+FF03,151076.0,151093.0,Order 41 - Strip 1_Area 34,,Imaging,440.0,119.0,NA,NA,500.0,2011.0798034716204,500.0,2011.0798034716204,Order 41 - Strip 1,Area 34,2024-11-13 12:30:44
+FF03,157677.0,157693.0,Order 9 - Strip 3_Area 13,,Imaging,552.0,112.0,NA,NA,500.0,1024.555646149594,500.0,1024.555646149594,Order 9 - Strip 3,Area 13,2024-11-13 12:30:44
+FF03,157818.0,157834.0,Order 72 - Strip 3_Area 8,,Imaging,664.0,112.0,NA,NA,500.0,1014.8042176362383,500.0,1014.8042176362383,Order 72 - Strip 3,Area 8,2024-11-13 12:30:44
+FF01,159555.0,159572.0,Order 11 - Strip 1_Area 13,,Imaging,776.0000000000001,119.0,NA,NA,500.0,1023.477781943578,500.0,1023.477781943578,Order 11 - Strip 1,Area 13,2024-11-13 12:30:44
+FF01,159741.0,159773.0,Order 71 - Strip 1_Area 8,,Imaging,1000.0000000000001,224.0,NA,NA,500.0,1082.1205948552683,500.0,1082.1205948552683,Order 71 - Strip 1,Area 8,2024-11-13 12:30:44
+FF02,160664.0,160674.0,Order 29 - Strip 0_Area 26,,Imaging,843.6000000000213,70.0,NA,NA,500.0,1034.9904882573537,500.0,1034.9904882573537,Order 29 - Strip 0,Area 26,2024-11-13 12:30:44
+FF02,166424.0,166440.0,Order 28 - Strip 3_Area 24,,Imaging,955.6000000000213,112.0,NA,NA,500.0,1008.8863509200849,500.0,1008.8863509200849,Order 28 - Strip 3,Area 24,2024-11-13 12:30:44
+FF03,168898.0,168930.0,Order 23 - Strip 1_Area 23,,Imaging,888.0,224.0,NA,NA,750.0,983.1865355442109,750.0,983.1865355442109,Order 23 - Strip 1,Area 23,2024-11-13 12:30:44
+FF03,175180.0,175196.0,Order 59 - Strip 3_Area 36,,Imaging,1000.0,112.0,NA,NA,1000.0,939.4260052454586,1000.0,939.4260052454586,Order 59 - Strip 3,Area 36,2024-11-13 12:30:44
+FF01,86765.0,87250.00000000007,,JEJU01,downlinking_from_Readout,20.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,87651.0,88294.0,,SVALBARD01,downlinking_from_Readout,20.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,88617.0,89220.00000000007,,JEJU01,downlinking_from_Readout,20.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,89578.0,90217.0,,SVALBARD01,downlinking_from_Readout,20.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,90517.0,91158.0,,JEJU01,downlinking_from_Readout,20.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,91217.0,91428.0,,AWARUA01,downlinking_from_Readout,132.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,91502.0,92138.0,,SVALBARD01,downlinking_from_Readout,20.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,92455.0,93065.0,,JEJU01,downlinking_from_Readout,131.99999999999997,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,93421.0,94054.0,,SVALBARD01,downlinking_from_Readout,131.99999999999997,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,94450.0,94939.0,,JEJU01,downlinking_from_Readout,131.20000000000755,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,95342.0,95974.0,,SVALBARD01,downlinking_from_Readout,131.20000000000755,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,97263.0,97894.0,,SVALBARD01,downlinking_from_Readout,20.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,99178.0,99810.0,,SVALBARD01,downlinking_from_Readout,243.9999999999999,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,101098.0,101733.0,,SVALBARD01,downlinking_from_Readout,131.20000000000755,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,103018.0,103656.0,,SVALBARD01,downlinking_from_Readout,20.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,104936.0,105578.0,,SVALBARD01,downlinking_from_Readout,243.9999999999999,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,105333.0,105578.0,,MAU01,downlinking_from_Readout,243.20000000000755,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,106860.0,107504.0,,SVALBARD01,downlinking_from_Readout,243.20000000000755,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,107182.0,107504.0,,MAU01,downlinking_from_Readout,139.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,108787.0,109433.0,,SVALBARD01,downlinking_from_Readout,139.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,109082.0,109433.0,,MAU01,downlinking_from_Readout,243.9999999999999,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,110713.0,111359.0,,SVALBARD01,downlinking_from_Readout,243.9999999999999,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,111024.0,111359.0,,MAU01,downlinking_from_Readout,530.2000000000077,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,112649.0,113290.0,,SVALBARD01,downlinking_from_Readout,530.2000000000077,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,113017.0,113290.0,,MAU01,downlinking_from_Readout,391.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,114589.0,115223.0,,SVALBARD01,downlinking_from_Readout,390.99999999999994,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,115494.0,115552.0,,AWARUA01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,116531.0,117153.0,,SVALBARD01,downlinking_from_Readout,587.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,117210.0,117622.0,,AWARUA01,downlinking_from_Readout,474.99999999999994,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,118484.0,119088.0,,SVALBARD01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,119041.0,119088.0,,AWARUA01,downlinking_from_Readout,587.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,120443.0,121023.0,,SVALBARD01,downlinking_from_Readout,474.99999999999994,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,120916.0,121023.0,,AWARUA01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,122404.0,122956.0,,SVALBARD01,downlinking_from_Readout,587.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,122824.0,122956.0,,AWARUA01,downlinking_from_Readout,474.99999999999994,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,124377.0,124893.0,,SVALBARD01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,124758.0,124893.0,,AWARUA01,downlinking_from_Readout,587.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,126357.0,126831.0,,SVALBARD01,downlinking_from_Readout,34.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,126732.0,126831.0,,AWARUA01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,128338.0,128766.0,,SVALBARD01,downlinking_from_Readout,587.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,128763.0,128766.0,,AWARUA01,downlinking_from_Readout,34.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,130330.0,130706.0,,SVALBARD01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,131434.0,131759.0,,JEJU01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,132327.0,132647.0,,SVALBARD01,downlinking_from_Readout,34.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,133262.0,133810.0,,JEJU01,downlinking_from_Readout,34.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,134323.0,134586.0,,SVALBARD01,downlinking_from_Readout,587.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,135150.0,135777.0,,JEJU01,downlinking_from_Readout,433.00000000000006,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,136324.0,136533.0,,SVALBARD01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,137072.0,137702.0,,JEJU01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,138321.0,138487.0,,SVALBARD01,downlinking_from_Readout,202.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,139022.0,139584.0,,JEJU01,downlinking_from_Readout,202.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,140302.0,140450.0,,SVALBARD01,downlinking_from_Readout,545.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,141008.0,141403.0,,JEJU01,downlinking_from_Readout,545.0000000000001,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,142269.0,142435.0,,SVALBARD01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,144222.0,144432.0,,SVALBARD01,downlinking_from_Readout,202.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,146052.0,146244.0,,MAU01,downlinking_from_Readout,321.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,146165.0,146244.0,,SVALBARD01,downlinking_from_Readout,545.0000000000001,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,147793.0,148309.0,,MAU01,downlinking_from_Readout,657.0000000000001,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,148108.0,148309.0,,SVALBARD01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,149655.0,150277.0,,MAU01,downlinking_from_Readout,774.4000000000192,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,150049.0,150277.0,,SVALBARD01,downlinking_from_Readout,321.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,151570.0,152204.0,,MAU01,downlinking_from_Readout,440.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,151985.0,152204.0,,SVALBARD01,downlinking_from_Readout,657.0000000000001,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,153534.0,154085.0,,MAU01,downlinking_from_Readout,657.0000000000001,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,153924.0,154085.0,,SVALBARD01,downlinking_from_Readout,773.6000000000213,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,155596.0,155884.0,,MAU01,downlinking_from_Readout,773.6000000000213,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,155862.0,155884.0,,SVALBARD01,downlinking_from_Readout,440.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,157795.0,158347.0,,SVALBARD01,downlinking_from_Readout,657.0000000000001,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,159732.0,160312.0,,SVALBARD01,downlinking_from_Readout,773.6000000000213,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,161667.0,162271.0,,SVALBARD01,downlinking_from_Readout,664.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,163400.0,163525.0,,AWARUA01,downlinking_from_Readout,843.6000000000213,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,163598.0,164219.0,,SVALBARD01,downlinking_from_Readout,1000.0000000000001,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,165181.0,165651.0,,AWARUA01,downlinking_from_Readout,664.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,165532.0,165651.0,,SVALBARD01,downlinking_from_Readout,843.6000000000213,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,167058.0,167651.0,,AWARUA01,downlinking_from_Readout,1000.0000000000001,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,167464.0,167651.0,,SVALBARD01,downlinking_from_Readout,664.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,168967.0,169611.0,,AWARUA01,downlinking_from_Readout,954.8000000000095,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF01,169392.0,169611.0,,SVALBARD01,downlinking_from_Readout,1000.0000000000001,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,170892.0,171538.0,,AWARUA01,downlinking_from_Readout,888.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF02,171322.0,171538.0,,SVALBARD01,downlinking_from_Readout,954.8000000000095,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,172416.0,172815.0,,JEJU01,downlinking_from_Readout,888.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,173250.0,173894.0,,SVALBARD01,downlinking_from_Readout,888.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,176766.0,177105.0,,AWARUA01,downlinking_from_Readout,1000.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
