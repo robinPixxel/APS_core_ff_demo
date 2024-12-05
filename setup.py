@@ -2,7 +2,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="APS_Python_core_pkg",
+    name="APS_Python_core",
     packages=find_packages("src"),
     package_dir={"": "src"},
     # include_package_data=True,

@@ -1,7 +1,7 @@
 
-{   "csv_file_path":{"gs_pass_opportunity":"1_input_data/GS_Passes_new (1).csv",
-                    "image_capture_opportunity":"1_input_data/Imaging_new (1) copy.csv",
-                    "image_downlink_file":"1_input_data/APS_imageTable_TV1.csv"},
+{   "csv_file_path":{"gs_pass_opportunity":"APS_Python_core/src/APS_Python_core/1_input_data/GS_Passes_new (1).csv",
+                    "image_capture_opportunity":"APS_Python_core/src/APS_Python_core/1_input_data/Imaging_new (1) copy.csv",
+                    "image_downlink_file":"APS_Python_core/src/APS_Python_core/1_input_data/APS_imageTable_TV1.csv"},
     "constraints":{"Thermal_constraints_GS_pass":false,          
                    "overlapping_constraints":true,
                    "active_assured_strip_id_constraint":false,
