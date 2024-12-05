@@ -1,12 +1,10 @@
 from setuptools import find_packages, setup
 
-import versioneer
-
 setup(
-    name="ff_mission_dashboard",
-    # version=versioneer.get_version(),
-    # cmdclass=versioneer.get_cmdclass(),
+    name="APS_Python_core",
     packages=find_packages("src"),
     package_dir={"": "src"},
-    include_package_data=True,
+    # include_package_data=True,
+    # TODO Just a hack to include all the data directories for now,
+    # have to use recurse to improve
 )
