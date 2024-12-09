@@ -264,9 +264,6 @@ def get_input_files(config):
 def get_schedule():
 
     # Open and read the JSON file
-    
-    print("HI")
-    print(os.getcwd(),"CHECKPATH")
     #APS_Python_core/src/APS_Python_core/1_input_data/config.json
     with open('APS_Python_core/src/APS_Python_core/1_input_data/config.json', 'r') as file:
     #with open('../1_input_data/config.json', 'r') as file:

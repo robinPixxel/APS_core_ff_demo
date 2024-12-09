@@ -5,6 +5,7 @@ setup.py
 src/APS_Python_core/__init__.py
 src/APS_Python_core/main.py
 src/APS_Python_core/main_old.py
+src/APS_Python_core/new_main.py
 src/APS_Python_core/result_interpret.py
 src/APS_Python_core/utils.py
 src/APS_Python_core.egg-info/PKG-INFO
