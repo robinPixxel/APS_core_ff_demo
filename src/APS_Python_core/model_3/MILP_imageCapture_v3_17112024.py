@@ -180,10 +180,7 @@ class ImageCapturePlan():
                 et_W = no_img_gs_pass_case[1]
                 s = no_img_gs_pass_case[2]
                 n = no_img_gs_pass_case[3]
-
             # for TW belonging to readout dedicated Window
-
-
                 if str(s)+'_'+str(n) in self.data['dedicatedReadoutTWlist__concat_sat_memoryTWindex'].keys() and (True):
                     DW_info_list = self.data['dedicatedReadoutTWlist__concat_sat_memoryTWindex'][str(s)+'_'+str(n)]
                     #print(s,n,"DTW",DW_info_list)
