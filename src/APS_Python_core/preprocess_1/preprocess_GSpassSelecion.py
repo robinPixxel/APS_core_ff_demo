@@ -2,6 +2,7 @@
 # X['r'] = X.groupby('a')['b'].rank(method='dense')
 import pandas as pd
 from APS_Python_core.utils import get_flag_for_gs_pass
+from APS_Python_core.utils import get_conflicting_dict
 
 class GSPassPreprocess:
     def __init__(self, GS_pass_df):
@@ -16,31 +17,31 @@ class GSPassPreprocess:
         
         self.data = {}   
 
-    def get_conflicting_dict(self,different_setup_time,conflicting_by = 'SatID',conflicting_on = 'GsID', different_master_key = 'GS1K1S2K2_pair'):
+    # def get_conflicting_dict(self,different_setup_time,conflicting_by = 'SatID',conflicting_on = 'GsID', different_master_key = 'GS1K1S2K2_pair'):
 
-        for on_item in self.GS_pass_df[conflicting_on].unique():
-            this_df = self.GS_pass_df[self.GS_pass_df[conflicting_on] == on_item ]
-            self.data[different_master_key]['sgk_list'] [on_item] = this_df['concat_gsid_satid_TWIndex'].unique()
-            for csgk in this_df['concat_gsid_satid_TWIndex'].unique():
-                that_df = this_df[this_df['concat_gsid_satid_TWIndex'] == csgk]
-                this_LOS = list(that_df['LOSOffset'].unique())[0]
-                this_AOS = list(that_df['AOSOffset'].unique())[0]
-                this_by_item = list(that_df[conflicting_by].unique())[0]
+    #     for on_item in self.GS_pass_df[conflicting_on].unique():
+    #         this_df = self.GS_pass_df[self.GS_pass_df[conflicting_on] == on_item ]
+    #         self.data[different_master_key]['sgk_list'] [on_item] = this_df['concat_gsid_satid_TWIndex'].unique()
+    #         for csgk in this_df['concat_gsid_satid_TWIndex'].unique():
+    #             that_df = this_df[this_df['concat_gsid_satid_TWIndex'] == csgk]
+    #             this_LOS = list(that_df['LOSOffset'].unique())[0]
+    #             this_AOS = list(that_df['AOSOffset'].unique())[0]
+    #             this_by_item = list(that_df[conflicting_by].unique())[0]
 
-                that_df1 = this_df[this_df['AOSOffset'] >= different_setup_time  + this_LOS]
-                that_df2 = this_df[this_df['LOSOffset'] <= this_AOS - different_setup_time]
-                that_df3 = pd.concat([that_df1,that_df2])
+    #             that_df1 = this_df[this_df['AOSOffset'] >= different_setup_time  + this_LOS]
+    #             that_df2 = this_df[this_df['LOSOffset'] <= this_AOS - different_setup_time]
+    #             that_df3 = pd.concat([that_df1,that_df2])
                 
-                not_needed = list(that_df3['concat_gsid_satid_TWIndex'].unique())
-                that_df = this_df[~this_df['concat_gsid_satid_TWIndex'].isin(not_needed)]
+    #             not_needed = list(that_df3['concat_gsid_satid_TWIndex'].unique())
+    #             that_df = this_df[~this_df['concat_gsid_satid_TWIndex'].isin(not_needed)]
 
-                that_df = that_df[that_df[conflicting_by] != this_by_item ]
-                that_df = that_df[that_df['concat_gsid_satid_TWIndex'] != csgk]
+    #             that_df = that_df[that_df[conflicting_by] != this_by_item ]
+    #             that_df = that_df[that_df['concat_gsid_satid_TWIndex'] != csgk]
 
                 
-                self.data[different_master_key]['domain_of_csgk'] [csgk] = list(that_df['concat_gsid_satid_TWIndex'].unique())
+    #             self.data[different_master_key]['domain_of_csgk'] [csgk] = list(that_df['concat_gsid_satid_TWIndex'].unique())
                     
-        pass     
+    #     pass     
 
     def create_dict(self):
         # get satellite and GS ID
@@ -55,9 +56,12 @@ class GSPassPreprocess:
         # to get dict concat satID and gsID list with sat as key
         self.GS_pass_df['TW'] = self.GS_pass_df[['AOSOffset','LOSOffset']].apply(list,axis=1)
         self.GS_pass_df['TW_rank'] = self.GS_pass_df.groupby(['concat_gsid_satid'])['TW'].rank(method='dense')
-        self.GS_pass_grouped_df0 = self.GS_pass_df.groupby(['SatID']).agg(csg_list=('concat_gsid_satid',set)).reset_index()
-        self.data['csgList_s'] = dict(zip(self.GS_pass_grouped_df0['SatID'],\
-                                                  self.GS_pass_grouped_df0['csg_list']))
+        self.GS_pass_groupedBySat_df0 = self.GS_pass_df.groupby(['SatID']).agg(csg_list=('concat_gsid_satid',set)).reset_index()
+        self.data['csgList_s'] = dict(zip(self.GS_pass_groupedBySat_df0['SatID'],\
+                                                  self.GS_pass_groupedBySat_df0['csg_list']))
+        self.GS_pass_groupedByGS_df0 = self.GS_pass_df.groupby(['GsID']).agg(csg_list=('concat_gsid_satid',set)).reset_index()
+        self.data['csgList_gs'] = dict(zip(self.GS_pass_groupedByGS_df0['GsID'],\
+                                                  self.GS_pass_groupedByGS_df0['csg_list']))
         
         #1. to get dict concat TW list with concat sat and gs  as key
         #2. to get dict concat TW Index list with concat sat and gs  as key
@@ -71,21 +75,34 @@ class GSPassPreprocess:
 
         #1. to get dict TW  with concat sat and gs and TWIndex  as key
         self.GS_pass_df['concat_gsid_satid_TWIndex'] = self.GS_pass_df['concat_gsid_satid']+'_'+ self.GS_pass_df['TW_rank'].astype(str)
+        self.GS_pass_groupedBySat_df0 = self.GS_pass_df.groupby(['SatID']).agg(csgk_list=('concat_gsid_satid_TWIndex',set)).reset_index()
+        self.data['csgkList_s'] = dict(zip(self.GS_pass_groupedBySat_df0['SatID'],\
+                                                  self.GS_pass_groupedBySat_df0['csgk_list']))
+        self.GS_pass_groupedByGS_df0 = self.GS_pass_df.groupby(['GsID']).agg(csgk_list=('concat_gsid_satid_TWIndex',set)).reset_index()
+        self.data['csgkList_gs'] = dict(zip(self.GS_pass_groupedByGS_df0['GsID'],\
+                                                  self.GS_pass_groupedByGS_df0['csgk_list']))
+        
+
         self.data['TW_csgk'] = dict(zip(self.GS_pass_df['concat_gsid_satid_TWIndex'],\
                                                   self.GS_pass_df['TW']))
         
         # SG1K1G2K2_pair :to get conflicting pairs for same satellite two GS concflicing.
         # SG1K1G2K2_pair :to get conflicting pairs for same satellite two GS concflicing.  
         self.data['SG1K1G2K2_pair'] = {}
-        self.data['SG1K1G2K2_pair']['sgk_list'] = {}
+        self.data['SG1K1G2K2_pair']['sgk_list'] = self.data['csgkList_s']
         self.data['SG1K1G2K2_pair']['domain_of_csgk'] = {}
-
+        self.data['SG1K1G2K2_pair']['domain_of_csgk'] = get_conflicting_dict(self.GS_pass_df,self.data['SG1K1G2K2_pair']['domain_of_csgk'],self.setup_time_S2G,'SatID')
+                                                    
+        
         self.data['GS1K1S2K2_pair'] = {}
-        self.data['GS1K1S2K2_pair']['sgk_list'] = {}
+        self.data['GS1K1S2K2_pair']['sgk_list'] = self.data['csgkList_gs']
         self.data['GS1K1S2K2_pair']['domain_of_csgk'] = {}
+        self.data['SG1K1G2K2_pair']['domain_of_csgk'] = get_conflicting_dict(self.GS_pass_df,self.data['GS1K1S2K2_pair']['domain_of_csgk'],self.setup_time_G2S)
+                   
 
-        self.get_conflicting_dict(self.setup_time_S2G, 'GsID','SatID','SG1K1G2K2_pair')
-        self.get_conflicting_dict(self.setup_time_G2S )
+
+        #self.get_conflicting_dict(self.setup_time_S2G, 'GsID','SatID','SG1K1G2K2_pair')
+        #self.get_conflicting_dict(self.setup_time_G2S )
 
              
         self.data['get_satellite'] =  dict(zip(self.GS_pass_df['concat_gsid_satid'],\

@@ -523,6 +523,34 @@ def get_eclipse_data(eclipse_df,config):
 
     return eclipse_df
 
+
+def get_conflicting_dict(df,data_dict,different_setup_time,conflicting_on = 'GsID',concat_filter ='concat_gsid_satid_TWIndex',LOS_column='LOSOffset',AOS_column='AOSOffset'):
+
+    for on_item in df[conflicting_on].unique():
+        this_df = df[df[conflicting_on] == on_item ]
+        # if different_master_key:
+        #     data_dict[different_master_key]['sgk_list'] [on_item] = this_df[concat_filter].unique()
+        for csgk in this_df[concat_filter].unique():
+            that_df = this_df[this_df[concat_filter] == csgk]
+            this_LOS = list(that_df[LOS_column].unique())[0]
+            this_AOS = list(that_df[AOS_column].unique())[0]
+
+
+            that_df1 = this_df[this_df[AOS_column] >= different_setup_time  + this_LOS]
+            that_df2 = this_df[this_df[LOS_column] <= this_AOS - different_setup_time]
+            that_df3 = pd.concat([that_df1,that_df2])
+            
+            not_needed = list(that_df3[concat_filter].unique())
+            that_df = this_df[~this_df[concat_filter].isin(not_needed)]
+
+            that_df = that_df[that_df[concat_filter] != csgk]
+
+            # if different_master_key:
+            #     data_dict[different_master_key]['domain_of_csgk'] [csgk] = list(that_df[concat_filter].unique())
+            # else:
+            data_dict[csgk] = list(that_df[concat_filter].unique())
+                
+    return data_dict 
 #assured_strip_id_list = get_active_assured_task(image_oppr_df,data)
     
 
