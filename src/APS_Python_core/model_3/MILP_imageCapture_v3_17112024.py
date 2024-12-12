@@ -221,7 +221,7 @@ class ImageCapturePlan():
                     self.prob +=  et_DW * self.XR['readout_happens'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(n)]
 
                     self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.XR['readout_happens'+s+'_'+str(n)] #* self.config['min_readou_time_seconds'] # min 50 secode readout min_readou_time_seconds
-                    self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.M * self.XR['readout_happens'+s+'_'+str(n)]
+                    #self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.M * self.XR['readout_happens'+s+'_'+str(n)]
 
                     ptw_list = self.data['prev_dedicatedReadoutIndex__s_TWI_dict__s'][s][s+'_'+str(n)]
 
