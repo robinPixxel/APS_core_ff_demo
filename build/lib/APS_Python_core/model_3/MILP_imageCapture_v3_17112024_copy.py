@@ -164,15 +164,24 @@ class ImageCapturePlan():
             
         #Memory constarint
 
-        for no_img_gs_pass_case in self.data['Memory_NoimageGs_TW_list']:
-            st_W = no_img_gs_pass_case[0]
-            et_W = no_img_gs_pass_case[1]
-            s = no_img_gs_pass_case[2]
-            n = no_img_gs_pass_case[3]
-        # for TW belonging to readout dedicated Window
-            
-            if str(s)+'_'+str(n) in self.data['dedicatedReadoutTWlist__concat_sat_memoryTWindex'].keys() :
-                if self.config['constraints']['readout_constraint']:
+        # when there is downlinking --> no imaging no readout and vice versa
+        # Camera memory and Readout memory
+        #1 : NO Img No gs 
+
+        # ptw_list = self.data['prev_tWList__s_TWI_dict__s'][s][s+'_'+str(n)]
+        # prev_window = ptw_list[1]
+        # self.prob += self.camera_memory_value['camera_memory_value'+s+'_'+str(n)] == self.camera_memory_value['camera_memory_value'+s+'_'+str(prev_window)] + \
+        #     self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)]
+        
+        #self.prob += self.camera_memory_value['camera_memory_value'+s+'_'+str(1)] == self.data['']
+        if self.config['constraints']['memory_constrant']:
+            for no_img_gs_pass_case in self.data['Memory_NoimageGs_TW_list']:
+                st_W = no_img_gs_pass_case[0]
+                et_W = no_img_gs_pass_case[1]
+                s = no_img_gs_pass_case[2]
+                n = no_img_gs_pass_case[3]
+            # for TW belonging to readout dedicated Window
+                if str(s)+'_'+str(n) in self.data['dedicatedReadoutTWlist__concat_sat_memoryTWindex'].keys() and (True):
                     DW_info_list = self.data['dedicatedReadoutTWlist__concat_sat_memoryTWindex'][str(s)+'_'+str(n)]
                     #print(s,n,"DTW",DW_info_list)
                     s_DW = DW_info_list[0]
@@ -180,19 +189,18 @@ class ImageCapturePlan():
                     et_DW = DW_info_list[2]
 
                     # change in camera memory Due to Readout
-                    if self.config['constraints']['camera_memory_constraint']:
-                        self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] >= \
-                            0 - self.data['Readout_rate'] *(self.ZE['readout_end_time_'+s+'_'+str(n)] -self.ZS['readout_start_time_'+s+'_'+str(n)]) \
-                                -self.M *(1-self.XR['readout_happens'+s+'_'+str(n)])
-                        
-                        self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] <= \
-                            0 - self.data['Readout_rate'] *(self.ZE['readout_end_time_'+s+'_'+str(n)] -self.ZS['readout_start_time_'+s+'_'+str(n)]) \
-                                + self.M *(1-self.XR['readout_happens'+s+'_'+str(n)])
-                        
-                        self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] <= self.M * self.XR['readout_happens'+s+'_'+str(n)]
-                        self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] >= -1* self.M * self.XR['readout_happens'+s+'_'+str(n)]
+                    self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] >= \
+                        0 - self.data['Readout_rate'] *(self.ZE['readout_end_time_'+s+'_'+str(n)] -self.ZS['readout_start_time_'+s+'_'+str(n)]) \
+                            -self.M *(1-self.XR['readout_happens'+s+'_'+str(n)])
+                    
+                    self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] <= \
+                        0 - self.data['Readout_rate'] *(self.ZE['readout_end_time_'+s+'_'+str(n)] -self.ZS['readout_start_time_'+s+'_'+str(n)]) \
+                            + self.M *(1-self.XR['readout_happens'+s+'_'+str(n)])
+                    
+                    self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] <= self.M * self.XR['readout_happens'+s+'_'+str(n)]
+                    self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] >= -1* self.M * self.XR['readout_happens'+s+'_'+str(n)]
 
-                        # change in readout  memory Due to Readout
+                    # change in readout  memory Due to Readout
                     self.prob += self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)] >= \
                             self.data['Readout_rate'] *(self.ZE['readout_end_time_'+s+'_'+str(n)] -self.ZS['readout_start_time_'+s+'_'+str(n)]) \
                             -self.M *(1-self.XR['readout_happens'+s+'_'+str(n)])
@@ -213,9 +221,28 @@ class ImageCapturePlan():
                     self.prob +=  et_DW * self.XR['readout_happens'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(n)]
 
                     self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.XR['readout_happens'+s+'_'+str(n)] #* self.config['min_readou_time_seconds'] # min 50 secode readout min_readou_time_seconds
-                    self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.M * self.XR['readout_happens'+s+'_'+str(n)]
+                    #self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.M * self.XR['readout_happens'+s+'_'+str(n)]
 
                     ptw_list = self.data['prev_dedicatedReadoutIndex__s_TWI_dict__s'][s][s+'_'+str(n)]
+
+                    if self.config['constraints']['thermal_constraint_readout']:
+                        self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.max_heat_time_readout_dict[s]
+                        for p in ptw_list[1:]:
+                            #self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + self.max_heat_time_readout_dict[s] - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)])#TODO2
+                            self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + \
+                                                                                            lpSum([self.betaR['bucket_HZ_'+s+'_'+str(p)+'_'+str(bi) ] * v[2] \
+                                                                                            for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items()])\
+                                                                                    - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)]) \
+                                                                                    - self.M * (1- self.XR['readout_happens'+s+'_'+str(n)])#TODO2
+                            self.prob += lpSum([self.betaR['bucket_HZ_'+s+'_'+str(p)+'_'+str(bi)] 
+                                                for bi in self.data['heatTimeBucket_SCT_dict__s'][s].keys()]) ==1 
+                            
+                            for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items():
+                                self.prob += self.ZE['readout_end_time_'+s+'_'+str(p)] -  self.ZS['readout_start_time_'+s+'_'+str(p)]\
+                                            >= v[0] - self.M * (1- self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] )
+                                self.prob += self.ZE['readout_end_time_'+s+'_'+str(p)] -  self.ZS['readout_start_time_'+s+'_'+str(p)]\
+                                            <= v[1] + self.M * (1- self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] )
+            
 
                     if len(ptw_list) != 1 :
                         prev_window = ptw_list[1]
@@ -224,140 +251,319 @@ class ImageCapturePlan():
                     else:
                         self.prob += self.readout_memory_value['readout_memory_value'+s+'_'+str(n)] == self.data['initial_readout_camera_memory_value__s'][s] + \
                             self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)]  
-                        
-
-                if self.config['constraints']['thermal_constraint_readout']:
-                    self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.max_heat_time_readout_dict[s]
-                    for p in ptw_list[1:]:
-                        #self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + self.max_heat_time_readout_dict[s] - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)])#TODO2
-                        self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + \
-                                                                                        lpSum([self.betaR['bucket_HZ_'+s+'_'+str(p)+'_'+str(bi) ] * v[2] \
-                                                                                        for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items()])\
-                                                                                - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)]) \
-                                                                                - self.M * (1- self.XR['readout_happens'+s+'_'+str(n)])#TODO2
-                        self.prob += lpSum([self.betaR['bucket_HZ_'+s+'_'+str(p)+'_'+str(bi)] 
-                                            for bi in self.data['heatTimeBucket_SCT_dict__s'][s].keys()]) ==1 
-                        
-                        for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items():
-                            self.prob += self.ZE['readout_end_time_'+s+'_'+str(p)] -  self.ZS['readout_start_time_'+s+'_'+str(p)]\
-                                        >= v[0] - self.M * (1- self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] )
-                            self.prob += self.ZE['readout_end_time_'+s+'_'+str(p)] -  self.ZS['readout_start_time_'+s+'_'+str(p)]\
-                                        <= v[1] + self.M * (1- self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] )
-    
-
                     
-            else:
-                #self.prob += self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)] == 0
-                if self.config['constraints']['camera_memory_constraint']:
+
+                else:
+                    #self.prob += self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)] == 0
                     self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] == 0
-                    ptw_list = self.data['prev_tWList__s_TWI_dict__s'][s][s+'_'+str(n)]    
-                    if len(ptw_list) != 1 :
-                        prev_window = ptw_list[1]
+                    #self.prob += self.XR['readout_happens'+s+'_'+str(n)] == 0
+                    #self.prob += self.XR['readout_happens'+s+'_'+str(n)] == 0
 
-                        self.prob += self.camera_memory_value['camera_memory_value'+s+'_'+str(n)] == self.camera_memory_value['camera_memory_value'+s+'_'+str(prev_window)] + \
-                                    self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)]
-                        
-                    else:
-                        print('noImgGs_check',s,n,ptw_list)
-                        self.prob += self.camera_memory_value['camera_memory_value'+s+'_'+str(n)] == self.data['initial_camera_memory_value__s'][s] + \
-                            self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)]
+                    # start and end time bounds
+
+                    # self.prob +=  st_W * self.XR['readout_happens'+s+'_'+str(n)] <= self.ZS['readout_start_time_'+s+'_'+str(n)]
+                    # self.prob +=  et_W * self.XR['readout_happens'+s+'_'+str(n)] >= self.ZS['readout_start_time_'+s+'_'+str(n)]
+
+                    # self.prob +=  st_W * self.XR['readout_happens'+s+'_'+str(n)] <= self.ZE['readout_end_time_'+s+'_'+str(n)]
+                    # self.prob +=  et_W * self.XR['readout_happens'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(n)]
+
+                # processng time dependency on binary variable  # may be redundant
+                # self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.XR['readout_happens'+s+'_'+str(n)]
+                # self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.M * self.XR['readout_happens'+s+'_'+str(n)]
+                
+                # max_processing time of readout operation based on thermal constraint
+                #self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= 120 ## TODO1
+
+                # max_processing time of readout operation based on thermal constraint
+                ptw_list = self.data['prev_tWList__s_TWI_dict__s'][s][s+'_'+str(n)]
             
-        for only_img_case in self.data['Memory_onlyImgTW_list']:
+                # if self.config['constraints']['thermal_constraint_readout']:
+                #     self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.max_heat_time_readout_dict[s]
+                #     for p in ptw_list[1:]:
+                #         #self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + self.max_heat_time_readout_dict[s] - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)])#TODO2
+                #         self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + \
+                #                                                                         lpSum([self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi) ] * v[2] \
+                #                                                                         for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items()])\
+                #                                                                 - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)]) \
+                #                                                                 - self.M * (1- self.XR['readout_happens'+s+'_'+str(n)])#TODO2
+                #         self.prob += lpSum([self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] 
+                #                             for bi in self.data['heatTimeBucket_SCT_dict__s'][s].keys()]) ==1 
+                        
+                #         for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items():
+                #             self.prob += self.ZE['readout_end_time_'+s+'_'+str(p)] -  self.ZS['readout_start_time_'+s+'_'+str(p)]\
+                #                         >= v[0] - self.M * (1- self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] )
+                #             self.prob += self.ZE['readout_end_time_'+s+'_'+str(p)] -  self.ZS['readout_start_time_'+s+'_'+str(p)]\
+                #                         <= v[1] + self.M * (1- self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] )
+                    
+                
+                if len(ptw_list) != 1 :
+                    prev_window = ptw_list[1]
 
-            st_W = only_img_case[0]
-            et_W = only_img_case[1]
-            s = only_img_case[2]
-            n = only_img_case[3]
-            j = only_img_case[4]
-            k = only_img_case[5]
+                    self.prob += self.camera_memory_value['camera_memory_value'+s+'_'+str(n)] == self.camera_memory_value['camera_memory_value'+s+'_'+str(prev_window)] + \
+                                self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)]
+                    
+                    # self.prob += self.readout_memory_value['readout_memory_value'+s+'_'+str(n)] == self.readout_memory_value['readout_memory_value'+s+'_'+str(prev_window)] + \
+                    #             self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)]
+                else:
+                    print('noImgGs_check',s,n,ptw_list)
+                    self.prob += self.camera_memory_value['camera_memory_value'+s+'_'+str(n)] == self.data['initial_camera_memory_value__s'][s] + \
+                        self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)]
+                    
+                    # self.prob += self.readout_memory_value['readout_memory_value'+s+'_'+str(n)] == self.data['initial_readout_camera_memory_value__s'][s] + \
+                    #     self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)]  
+
+                # print(s,n)
+                # self.solve_model() 
+                # if len(ptw_list) != 1 :
+                #     print('camera')
+                #     print(self.camera_memory_value['camera_memory_value'+s+'_'+str(n)].value(),self.camera_memory_value['camera_memory_value'+s+'_'+str(prev_window)].value(),self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)].value(),self.prob.objective.value())
+                #     print('readout')
+                #     print(self.readout_memory_value['readout_memory_value'+s+'_'+str(n)].value(),self.readout_memory_value['readout_memory_value'+s+'_'+str(prev_window)].value(),self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)].value())
 
 
-            # change in camera memory depends on imaging 
-            if self.config['constraints']['camera_memory_constraint']:
+                # else:
+                #     print('camera')
+                #     print(self.camera_memory_value['camera_memory_value'+s+'_'+str(n)].value(),self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)].value(),self.prob.objective.value())
+                #     print('readout')
+                #     print(self.readout_memory_value['readout_memory_value'+s+'_'+str(n)].value(),self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)].value())
+
+
+            for only_img_case in self.data['Memory_onlyImgTW_list']:
+
+                st_W = only_img_case[0]
+                et_W = only_img_case[1]
+                s = only_img_case[2]
+                n = only_img_case[3]
+                j = only_img_case[4]
+                k = only_img_case[5]
+                #print(et_W,st_W,et_W-st_W)
+
+            
+                # for imaging readout opertion is strictly not happening.
+                #self.prob += self.XR['readout_happens'+s+'_'+str(n)] == 0
+                # change in readout memory
+                #self.prob += self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)] == 0
+                # change in camera memory
+                #self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] == 0
+                #  at most one of imaging or readout operation will happen
+                #self.prob += self.XR['readout_happens'+s+'_'+str(n)] + self.x_o ['oppr_'+s+'_'+j+'_'+str(k)] <= 1
+
+                # change in camera memory depends on imaging 
                 self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] <= self.data['imaging_rate'] * (et_W-st_W) + self.M * (1-self.x_o ['oppr_'+s+'_'+j+'_'+str(k)] )
                 self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] >= self.data['imaging_rate'] * (et_W-st_W) - self.M * (1-self.x_o ['oppr_'+s+'_'+j+'_'+str(k)] )
 
                 self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] <= self.M * (self.x_o ['oppr_'+s+'_'+j+'_'+str(k)])
                 # self.data['imaging_rate'] * (et_W-st_W) + self.M * (self.x_o ['oppr_'+s+'_'+j+'_'+str(k)] )
                 self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] >= -1 * self.M * (self.x_o ['oppr_'+s+'_'+j+'_'+str(k)])
+                # self.data['imaging_rate'] * (et_W-st_W) + self.M * (1-self.x_o ['oppr_'+s+'_'+j+'_'+str(k)] )
+
+                # start and end time bounds
+
+                #self.prob +=  st_W * self.XR['readout_happens'+s+'_'+str(n)] <= self.ZS['readout_start_time_'+s+'_'+str(n)]
+                #self.prob +=  et_W * self.XR['readout_happens'+s+'_'+str(n)] >= self.ZS['readout_start_time_'+s+'_'+str(n)]
+
+                #self.prob +=  st_W * self.XR['readout_happens'+s+'_'+str(n)] <= self.ZE['readout_end_time_'+s+'_'+str(n)]
+                #self.prob +=  et_W * self.XR['readout_happens'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(n)]
+
+                # processng time dependency on binary variable  # may be redundant
+                #self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.XR['readout_happens'+s+'_'+str(n)]
+                #self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.M * self.XR['readout_happens'+s+'_'+str(n)]
+                
+                # max_processing time of readout operation based on thermal constraint
+                #self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= 120
+
+                # max_processing time of readout operation based on thermal constraint
+                
+                # =====================================================================================================================
+                # if self.config['constraints']['thermal_constraint_readout']:
+                #     self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.max_heat_time_readout_dict[s]
+
+                #     ptw_list = self.data['prev_tWList__s_TWI_dict__s'][s][s+'_'+str(n)]
+                #     for p in ptw_list[1:]:
+                #         #self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + 140 - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)])#TODO2
+                #         self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + \
+                #                                                                 lpSum([self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi) ] * v[2] \
+                #                                                                         for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items()])\
+                #                                                                 - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)]) \
+                #                                                                 - self.M * (1- self.XR['readout_happens'+s+'_'+str(n)])#TODO2
+                #         self.prob += lpSum([self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] 
+                #                             for bi in self.data['heatTimeBucket_SCT_dict__s'][s].keys()]) ==1 
+                        
+                #         for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items():
+                #             self.prob += self.ZE['readout_end_time_'+s+'_'+str(p)] -  self.ZS['readout_start_time_'+s+'_'+str(p)]\
+                #                         >= v[0] - self.M * (1- self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] )
+                #             self.prob += self.ZE['readout_end_time_'+s+'_'+str(p)] -  self.ZS['readout_start_time_'+s+'_'+str(p)]\
+                #                         <= v[1] + self.M * (1- self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] )
+                    
+                # =====================================================================================================================
+                if self.config['constraints']['thermal_constraint_imaging']:
+                    self.prob += et_W - st_W <= self.max_heat_time_camera_dict[s] + self.M *(1-self.x_o ['oppr_'+s+'_'+j+'_'+str(k)]),"Thermal_max_time_operation_"+str(s)+'_'+str(n)
+
+                    ptw_list_ = self.data['prev_ImagingTWList__s_TWI_dict__s'][s][s+'_'+str(n)]
+                
+                    for p in ptw_list_[1:]:
+                        #self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + 140 - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)])#TODO2
+                        prev_index_list = [ [only_img_case[0],only_img_case[1],only_img_case[5],only_img_case[4]] for only_img_case in self.data['Memory_onlyImgTW_list'] if ((only_img_case[3]==p) and (only_img_case[2]==s))  ] 
+                    
+                        et_W_p = prev_index_list[0][1]
+                        st_W_p = prev_index_list[0][0]
+                        k_p = prev_index_list[0][2]
+                        j_p = prev_index_list[0][3]
+                        self.prob += st_W >= et_W_p+ \
+                                            lpSum([self.betaC['bucketC_HZ_'+s+'_'+str(p)+'_'+str(bi) ] * v[2] \
+                                                for bi,v in self.data['heatCameraTimeBucket_SCT_dict__s'][s].items()])\
+                                            - self.M * (1- self.x_o ['oppr_'+s+'_'+j+'_'+str(k)]) \
+                                            - self.M * (1- self.x_o ['oppr_'+s+'_'+j_p+'_'+str(k_p)]),"Thermal_safe_cool_time_"+str(s)+'_'+str(n)+'_'+str(p) ##TODO2
+                        
+                        self.prob += lpSum([self.betaC['bucketC_HZ_'+s+'_'+str(p)+'_'+str(bi)] 
+                                            for bi in self.data['heatCameraTimeBucket_SCT_dict__s'][s].keys()]) == 1,"Thermal_one_bucket_selection_"+str(s)+'_'+str(n)+'_'+str(p)
+                        
+                        for bi,v in self.data['heatCameraTimeBucket_SCT_dict__s'][s].items():
+                            self.prob += et_W_p -  st_W_p\
+                                        >= v[0] - self.M * (1- self.betaC['bucketC_HZ_'+s+'_'+str(p)+'_'+str(bi)] )
+                            self.prob += et_W_p -  st_W_p\
+                                        <= v[1] + self.M * (1- self.betaC['bucketC_HZ_'+s+'_'+str(p)+'_'+str(bi)] )
+                #=====================================================================================================================
 
                 ptw_list = self.data['prev_tWList__s_TWI_dict__s'][s][s+'_'+str(n)]
                 if len(ptw_list) != 1 :
                     prev_window = ptw_list[1]
                     self.prob += self.camera_memory_value['camera_memory_value'+s+'_'+str(n)] == self.camera_memory_value['camera_memory_value'+s+'_'+str(prev_window)] + \
                                 self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)]
-                
+                    
+                    # self.prob += self.readout_memory_value['readout_memory_value'+s+'_'+str(n)] == self.readout_memory_value['readout_memory_value'+s+'_'+str(prev_window)] + \
+                    #             self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)]
                 else:
                     print("img_check",s,n,ptw_list)
                     
                     self.prob += self.camera_memory_value['camera_memory_value'+s+'_'+str(n)] == self.data['initial_camera_memory_value__s'][s] + \
                         self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)]
-                
-            # =====================================================================================================================
-            if self.config['constraints']['thermal_constraint_imaging']:
-                self.prob += et_W - st_W <= self.max_heat_time_camera_dict[s] + self.M *(1-self.x_o ['oppr_'+s+'_'+j+'_'+str(k)]),"Thermal_max_time_operation_"+str(s)+'_'+str(n)
-
-                ptw_list_ = self.data['prev_ImagingTWList__s_TWI_dict__s'][s][s+'_'+str(n)]
-            
-                for p in ptw_list_[1:]:
-                    #self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + 140 - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)])#TODO2
-                    prev_index_list = [ [only_img_case[0],only_img_case[1],only_img_case[5],only_img_case[4]] for only_img_case in self.data['Memory_onlyImgTW_list'] if ((only_img_case[3]==p) and (only_img_case[2]==s))  ] 
-                
-                    et_W_p = prev_index_list[0][1]
-                    st_W_p = prev_index_list[0][0]
-                    k_p = prev_index_list[0][2]
-                    j_p = prev_index_list[0][3]
-                    self.prob += st_W >= et_W_p+ \
-                                        lpSum([self.betaC['bucketC_HZ_'+s+'_'+str(p)+'_'+str(bi) ] * v[2] \
-                                            for bi,v in self.data['heatCameraTimeBucket_SCT_dict__s'][s].items()])\
-                                        - self.M * (1- self.x_o ['oppr_'+s+'_'+j+'_'+str(k)]) \
-                                        - self.M * (1- self.x_o ['oppr_'+s+'_'+j_p+'_'+str(k_p)]),"Thermal_safe_cool_time_"+str(s)+'_'+str(n)+'_'+str(p) ##TODO2
                     
-                    self.prob += lpSum([self.betaC['bucketC_HZ_'+s+'_'+str(p)+'_'+str(bi)] 
-                                        for bi in self.data['heatCameraTimeBucket_SCT_dict__s'][s].keys()]) == 1,"Thermal_one_bucket_selection_"+str(s)+'_'+str(n)+'_'+str(p)
-                    
-                    for bi,v in self.data['heatCameraTimeBucket_SCT_dict__s'][s].items():
-                        self.prob += et_W_p -  st_W_p\
-                                    >= v[0] - self.M * (1- self.betaC['bucketC_HZ_'+s+'_'+str(p)+'_'+str(bi)] )
-                        self.prob += et_W_p -  st_W_p\
-                                    <= v[1] + self.M * (1- self.betaC['bucketC_HZ_'+s+'_'+str(p)+'_'+str(bi)] )
-            #=====================================================================================================================
+                    # self.prob += self.readout_memory_value['readout_memory_value'+s+'_'+str(n)] == self.data['initial_readout_camera_memory_value__s'][s] + \
+                    #     self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)]
+                # print(s,n)
+                # self.solve_model()
+                # if len(ptw_list) != 1 :
+                #     print(self.camera_memory_value['camera_memory_value'+s+'_'+str(n)].value(),self.camera_memory_value['camera_memory_value'+s+'_'+str(prev_window)].value(),self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)].value(),self.prob.objective.value())
 
-        for only_gs_case in self.data['Memory_onlyGsTW_list']:
-
-            st_W = only_gs_case[0]
-            et_W = only_gs_case[1]
-            s = only_gs_case[2]
-            n = only_gs_case[3]
-            g = only_gs_case[4]
+                # else:
+                #     print(self.camera_memory_value['camera_memory_value'+s+'_'+str(n)].value(),self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)].value(),self.prob.objective.value())
 
 
-            # No change in camera memory 
-            if self.config['constraints']['camera_memory_constraint']:
+            for only_gs_case in self.data['Memory_onlyGsTW_list']:
+
+                st_W = only_gs_case[0]
+                et_W = only_gs_case[1]
+                s = only_gs_case[2]
+                n = only_gs_case[3]
+                g = only_gs_case[4]
+
+                # DV
+                #self.GC = {'downlink_camera_memory_'+s+'_'+str(g)+'_'+str(n):LpVariable('downlink_camera_memory_'+s+'_'+str(g)+'_'+str(n), cat= 'Binary' )}
+                #self.GR = {'downlink_readout_memory_'+s+'_'+str(g)+'_'+str(n):LpVariable('downlink_readout_memory_'+s+'_'+str(g)+'_'+str(n), cat= 'Binary' )}
+                #self.GP = {'ground_PAss_happens_'+s+'_'+str(n):LpVariable('ground_PAss_happens_'+s+'_'+str(n), cat= 'Binary' )}
+                #self.Pgs = {'process_time_GP_'+s+'_'+str(g)+'_'+str(n) : LpVariable('process_time_GP_'+s+'_'+str(g)+'_'+str(n) , cat= 'Continous',lowBound = 0  ) }
+
+                # No change in camera memory 
+                
                 self.prob += self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)] ==0
+                
+            
+
+                # No chanege in readout memory 
+
+                #self.prob += self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)] == 0
+
+                
+
+
+            
+                # No readout Operation
+                
+                #self.prob += self.XR['readout_happens'+s+'_'+str(n)] == 0
+
+                
+
+            
+                ## change in readout memory due to downlink
+            
+
+                ## relation between GC and GE with GP
+                self.prob += self.GR['downlink_readout_memory_'+s+'_'+str(g)+'_'+str(n)] + self.GC['downlink_camera_memory_'+s+'_'+str(g)+'_'+str(n)] == self.GP['ground_PAss_happens_'+s+'_'+str(n)]
+                self.prob += self.GC['downlink_camera_memory_'+s+'_'+str(g)+'_'+str(n)] == 0
+                ## relation between XR and GP
+                self.prob +=  self.GP['ground_PAss_happens_'+s+'_'+str(n)] <= 1
+
+                # processing time bounds if GP doesn't happens then process time = 0 
+                self.prob += self.Pgs['process_time_GP_'+s+'_'+str(g)+'_'+str(n)] <= (et_W-st_W) * self.GP['ground_PAss_happens_'+s+'_'+str(n)]
+
+                # processing time will be at least 1 sec if GS pass happens  # TODO1 may be redundant
+                self.prob += self.Pgs['process_time_GP_'+s+'_'+str(g)+'_'+str(n)] >= self.GP['ground_PAss_happens_'+s+'_'+str(n)]
+
+                # start and end time bounds
+
+                #self.prob +=  st_W * self.XR['readout_happens'+s+'_'+str(n)] <= self.ZS['readout_start_time_'+s+'_'+str(n)]
+                #self.prob +=  et_W * self.XR['readout_happens'+s+'_'+str(n)] >= self.ZS['readout_start_time_'+s+'_'+str(n)]
+
+                #self.prob +=  st_W * self.XR['readout_happens'+s+'_'+str(n)] <= self.ZE['readout_end_time_'+s+'_'+str(n)]
+                #self.prob +=  et_W * self.XR['readout_happens'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(n)]
+
+                # processng time dependency on binary variable  # may be redundant
+                #self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.XR['readout_happens'+s+'_'+str(n)]
+                #self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.M * self.XR['readout_happens'+s+'_'+str(n)]
+                
+                # max_processing time of readout operation based on thermal constraint
+                #self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= 120
+
+                # max_processing time of readout operation based on thermal constraint
+                # =====================================================================================================================
+                
                 ptw_list = self.data['prev_tWList__s_TWI_dict__s'][s][s+'_'+str(n)]
+                # if self.config['constraints']['thermal_constraint_readout']:
+                #     self.prob += self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)] <= self.max_heat_time_readout_dict[s]
+
+                #     for p in ptw_list[1:]:
+                #         self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + 140 - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)])#TODO2
+                #         self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + \
+                #                                                                 lpSum([self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi) ] * v[2] \
+                #                                                                         for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items()])\
+                #                                                                 - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)]) \
+                #                                                                 - self.M * (1- self.XR['readout_happens'+s+'_'+str(n)])#TODO2
+                #         self.prob += lpSum([self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] 
+                #                             for bi in self.data['heatTimeBucket_SCT_dict__s'][s].keys()]) ==1 
+                        
+                #         for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items():
+                #             self.prob += self.ZE['readout_end_time_'+s+'_'+str(p)] -  self.ZS['readout_start_time_'+s+'_'+str(p)]\
+                #                         >= v[0] - self.M * (1- self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] )
+                #             self.prob += self.ZE['readout_end_time_'+s+'_'+str(p)] -  self.ZS['readout_start_time_'+s+'_'+str(p)]\
+                #                         <= v[1] + self.M * (1- self.betaR['bucket_HZ_'+s+'_'+str(n)+'_'+str(bi)] )
+                    
+
+
                 if len(ptw_list) != 1 :
                     prev_window = ptw_list[1]
 
                     self.prob += self.camera_memory_value['camera_memory_value'+s+'_'+str(n)] == self.camera_memory_value['camera_memory_value'+s+'_'+str(prev_window)] + \
                                 self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)]
                     
+                    # self.prob += self.readout_memory_value['readout_memory_value'+s+'_'+str(n)] == self.readout_memory_value['readout_memory_value'+s+'_'+str(prev_window)] + \
+                    #             self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)]
                 else:
                     print('only gs check ',s,n,ptw_list)
                     self.prob += self.camera_memory_value['camera_memory_value'+s+'_'+str(n)] == self.data['initial_camera_memory_value__s'][s] + \
                         self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)]
-                
-            ## relation between GC and GE with GP
-            self.prob += self.GR['downlink_readout_memory_'+s+'_'+str(g)+'_'+str(n)] + self.GC['downlink_camera_memory_'+s+'_'+str(g)+'_'+str(n)] == self.GP['ground_PAss_happens_'+s+'_'+str(n)]
-            self.prob += self.GC['downlink_camera_memory_'+s+'_'+str(g)+'_'+str(n)] == 0
-            ## relation between XR and GP
-            self.prob +=  self.GP['ground_PAss_happens_'+s+'_'+str(n)] <= 1
+                    
+                    # self.prob += self.readout_memory_value['readout_memory_value'+s+'_'+str(n)] == self.data['initial_readout_camera_memory_value__s'][s] + \
+                    #     self.readout_delta_memory_value['readout_delta_memory_value'+s+'_'+str(n)]
+                    
+                # print(s,n)
+                # self.solve_model()
+                # if len(ptw_list) != 1 :
+                #     print(self.camera_memory_value['camera_memory_value'+s+'_'+str(n)].value(),self.camera_memory_value['camera_memory_value'+s+'_'+str(prev_window)].value(),self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)].value(),self.prob.objective.value())
 
-            # processing time bounds if GP doesn't happens then process time = 0 
-            self.prob += self.Pgs['process_time_GP_'+s+'_'+str(g)+'_'+str(n)] <= (et_W-st_W) * self.GP['ground_PAss_happens_'+s+'_'+str(n)]
+                # else:
+                #     print(self.camera_memory_value['camera_memory_value'+s+'_'+str(n)].value(),self.delta_camera_memory_value['delta_camera_memory_value'+s+'_'+str(n)].value(),self.prob.objective.value())
 
-            # processing time will be at least 1 sec if GS pass happens  # TODO1 may be redundant
-            self.prob += self.Pgs['process_time_GP_'+s+'_'+str(g)+'_'+str(n)] >= self.GP['ground_PAss_happens_'+s+'_'+str(n)]
 
                 
         # power constraints
@@ -481,7 +687,7 @@ class ImageCapturePlan():
     
     #self.x_o = { 'oppr_'+sjk : LpVariable('oppr_'+sjk ,cat = 'Binary') for sjk in self.data['unique_opportunities'] }   
     def create_objective(self):
-        if self.config['objective']['GS_Pass_and_Imaging']:
+        if self.config['objective']['GS_Pass_time']:
             print("GS_Pass_time_objective")
             A = lpSum([self.x_o['oppr_'+sjk] *  self.data['TotalPriority__csjk'][sjk] for sjk in self.data['unique_img_opportunities_list']] )
             # B = lpSum([self.ZE['readout_end_time_'+s+'_'+str(n)] - self.ZS['readout_start_time_'+s+'_'+str(n)]  \
@@ -515,6 +721,15 @@ class ImageCapturePlan():
 
 
             self.prob += (A + C)#(A + C)*1000 + B*0.01 #- D *10  # #A + C#C + B #A + C +B
+            
+            
+        if self.config['objective']['total_priority']:
+            print("total_priority_objective")
+            self.prob += lpSum([self.Pgs['process_time_GP_'+only_gs_case[2]+'_'+str(only_gs_case[4])+'_'+str(only_gs_case[3])] \
+                                         for only_gs_case in self.data['Memory_onlyGsTW_list']]) >= self.data['GS_Pass_time_objective']
+            self.prob += lpSum([self.x_o['oppr_'+sjk] * self.data['TotalPriority__csjk'][sjk] for sjk in self.data['unique_img_opportunities_list']] )
+            #lpSum([self.x_o['oppr_'+sjk] * self.data['TotalPriority__csjk'][sjk] for sjk in self.data['unique_img_opportunities_list']] )
+
 
 
         if self.config['objective']['total_readout_memory']:

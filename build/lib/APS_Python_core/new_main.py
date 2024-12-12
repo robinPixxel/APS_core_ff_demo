@@ -6,14 +6,28 @@ import json
 import math
 
 from datetime import datetime as dt
-
 import os
+# from APS_Python_core.preprocess_1.preprocess_GSpassSelecion import GSPassPreprocess
+# from model_3.MILP_GSpassSelection_v3 import GSpassSelection
+# from postprocess_4.postprocess_GSpassSelection import GSpasspostprocess
+
+# from preprocess_1.preprocess_imageAqusuition_test import ImageAquisitionProcess #preprocess_imageAqusuition_test,preprocess_imageAquisition_v3_18112024
+# from model_3.MILP_imageCapture_v3_17112024_copy import ImageCapturePlan # MILP_imageCapture_v2_16102024,MILP_imageCapture_v2_25102024 # MILP_imageCapture_v2_07112024 #MILP_imageCapture_v3_17112024
+# from postprocess_4.image_capture_postprocess_V3_17112024 import ImagecapturePostProcess # image_capture_postprocess_V3_17112024# image_capture_postprocess_v2_18102024
+
+# from preprocess_1.preprocess_downlink_WIP import DownlinkingPreProcess
+# from model_3.MILP_downlink import ImageDownlinkPlan
+# from postprocess_4.postprocess_downlink import ImageDownlinkPostProcess
+
+# from result_interpret import interpret_result
+# from utils import *
+
 from APS_Python_core.preprocess_1.preprocess_GSpassSelecion import GSPassPreprocess
 from APS_Python_core.model_3.MILP_GSpassSelection_v3 import GSpassSelection
 from APS_Python_core.postprocess_4.postprocess_GSpassSelection import GSpasspostprocess
 
 from APS_Python_core.preprocess_1.preprocess_imageAqusuition_test import ImageAquisitionProcess #preprocess_imageAqusuition_test,preprocess_imageAquisition_v3_18112024
-from APS_Python_core.model_3.MILP_imageCapture_v3_17112024 import ImageCapturePlan # MILP_imageCapture_v2_16102024,MILP_imageCapture_v2_25102024 # MILP_imageCapture_v2_07112024 #MILP_imageCapture_v3_17112024
+from APS_Python_core.model_3.MILP_imageCapture_v3_17112024 import ImageCapturePlan # MILP_imageCapture_v3_17112024_copy#MILP_imageCapture_v2_16102024,MILP_imageCapture_v2_25102024 # MILP_imageCapture_v2_07112024 #MILP_imageCapture_v3_17112024# 
 from APS_Python_core.postprocess_4.image_capture_postprocess_V3_17112024 import ImagecapturePostProcess # image_capture_postprocess_V3_17112024# image_capture_postprocess_v2_18102024
 
 from APS_Python_core.preprocess_1.preprocess_downlink_WIP import DownlinkingPreProcess
@@ -45,6 +59,7 @@ def select_gs_pass_oppr(GS_pass_df,config):
 
     obj_preprocess = GSPassPreprocess(GS_pass_df)
     data = obj_preprocess.preprocess()
+    #print(data['SG1K1G2K2_pair']['domain_of_csgk'])
 
     obj_model = GSpassSelection(data,config)
     result,thermal_profile_gsPass = GSpasspostprocess(obj_model,data,config).get_gsPasses()# 21 seconds
@@ -78,40 +93,21 @@ def select_img_opprtunity(image_opportunity_df,gs_pass_result_df,eclipse_df_dict
     data['power_capacity__s']  = {s:720000000 for s,v in data['power_capacity__s'].items() }
     data['initial_power_value__s']  = {s:v*0.3 for s,v in data['power_capacity__s'].items() }
     #++++++++++++++++++++++++++  STEP 1  +++++++++++++++++++++++++++++++++++++++++++++++
-    config['objective']['GS_Pass_time'] = True
-    config['objective']['total_priority'] = False
+    config['objective']['GS_Pass_and_Imaging'] = True
     config['objective']['total_readout_memory'] = False
     obj_model = ImageCapturePlan(data,config)
 
     #Readout Schedule 
-    # data['GS_Pass_time_objective'] = obj_model.prob.objective.value()
-    # config['objective']['GS_Pass_time'] = False
-    # config['objective']['total_priority'] = False
-    # config['objective']['total_readout_memory'] = True
-    # obj_model = ImageCapturePlan(data,config)
+    data['GS_Pass_time_objective'] = obj_model.prob.objective.value()
+    config['objective']['GS_Pass_and_Imaging'] = False
+    config['objective']['total_readout_memory'] = True
+    obj_model = ImageCapturePlan(data,config)
 
-    #++++++++++++++++++++++++++  STEP 2  +++++++++++++++++++++++++++++++++++++++++++++++
-
-    # config['objective']['GS_Pass_time'] = False
-    # config['objective']['total_priority'] = True
-    # #config['objective']['total_readout_memory'] = False
-
-    # obj_model = ImageCapturePlan(data,config)
-
-    # data['total_priority_objective'] = obj_model.prob.objective.value()
-    #++++++++++++++++++++++++++  STEP 3  +++++++++++++++++++++++++++++++++++++++++++++++
-
-    # config['objective']['total_priority'] = False
-    # config['objective']['total_readout_memory'] = True
-
-    # obj_model = ImageCapturePlan(data,config)
     #++++++++++++++++++++++++++  PostProcess  +++++++++++++++++++++++++++++++++++++++++++++++
     post_obj = ImagecapturePostProcess(obj_model,data)
     img_capture_result= post_obj.get_schedule()
     #.isnull().sum()
     return img_capture_result,data
-    
-
     #======================================================================================================================================================================================================
 
     pass
@@ -213,7 +209,7 @@ def get_input_files(config,GS_pass_df,image_opportunity_df,image_downlink_df):
             break
 
 
-    in_orbit_eclipse_event = [1 for i in range(int(1.5*3600*0.6))] + [0 for i in range(int(1.5*3600*0.4))] #
+    in_orbit_eclipse_event = [1 for i in range(int(1.5*3600*0.4))] + [0 for i in range(int(1.5*3600*0.6))] #
     eclipse_df  = pd.DataFrame({'time_index': [i for i in range(min_time_index,min_time_index+hrs*3600)] ,"eclipse" : in_orbit_eclipse_event*int(hrs/1.5)})
     eclipse_df['SatID']= [union_list_of_sat] *len(eclipse_df)
     eclipse_df = eclipse_df.explode('SatID')
@@ -269,8 +265,8 @@ def get_schedule(config,GS_pass_df,image_opportunity_df,image_downlink_df):
         #config = json.load(file)
     original_image_opportunity_df = image_opportunity_df.copy()
     # if memory constraint False then thermal_constraint is also False
-    config['constraints']['thermal_constraint_readout'] = config['constraints']['memory_constrant'] and config['constraints']['thermal_constraint_readout']
-    config['constraints']['thermal_constraint_imaging'] = config['constraints']['memory_constrant'] and config['constraints']['thermal_constraint_imaging']
+    #config['constraints']['thermal_constraint_readout'] = config['constraints']['memory_constrant'] and config['constraints']['thermal_constraint_readout']
+    #config['constraints']['thermal_constraint_imaging'] = config['constraints']['memory_constrant'] and config['constraints']['thermal_constraint_imaging']
 
     #======================================================================================================================================================================================================
     # read_input
@@ -317,11 +313,20 @@ def get_schedule(config,GS_pass_df,image_opportunity_df,image_downlink_df):
     only_img_capture_result['end_time'] = only_img_capture_result[['end_time','base_time']].apply(lambda a: pd.to_datetime(a['base_time']) + pd.DateOffset(seconds=a['end_time']),axis=1)
 
     only_readout_result = img_capture_result[img_capture_result['operation']=='Readout'][['SatID','start_time','end_time','base_time']]
-    only_readout_result['start_time'] = only_readout_result[['start_time','base_time']].apply(lambda a: pd.to_datetime(a['base_time']) + pd.DateOffset(seconds=a['start_time']),axis=1)
-    only_readout_result['end_time'] = only_readout_result[['end_time','base_time']].apply(lambda a: pd.to_datetime(a['base_time']) + pd.DateOffset(seconds=a['end_time']),axis=1)
+    print("len_of_readout=",len(only_readout_result),only_readout_result)
+    if len(only_readout_result):
+        only_readout_result['start_time'] = only_readout_result[['start_time','base_time']].apply(lambda a: pd.to_datetime(a['base_time']) + pd.DateOffset(seconds=a['start_time']),axis=1)
+        only_readout_result['end_time'] = only_readout_result[['end_time','base_time']].apply(lambda a: pd.to_datetime(a['base_time']) + pd.DateOffset(seconds=a['end_time']),axis=1)
+
+    only_gsPass_result = img_capture_result[img_capture_result['operation']=='downlinking_from_Readout'][['SatID','start_time','end_time','gsID','base_time']]
+    only_gsPass_result['start_time'] = only_gsPass_result[['start_time','base_time']].apply(lambda a: pd.to_datetime(a['base_time']) + pd.DateOffset(seconds=a['start_time']),axis=1)
+    only_gsPass_result['end_time'] = only_gsPass_result[['end_time','base_time']].apply(lambda a: pd.to_datetime(a['base_time']) + pd.DateOffset(seconds=a['end_time']),axis=1)
+
 
     result_dict = {"only_readout_result":only_readout_result,\
-                  "only_img_capture_result":only_img_capture_result}
+                  "only_img_capture_result":only_img_capture_result,\
+                  "only_gsPass_result":only_gsPass_result,\
+                  "combined_result":img_capture_result}
     result_dict.update(interpret_result_dict)
     #return result_dict
     return result_dict

@@ -62,9 +62,7 @@ class GSpassSelection():
                           LpVariable('thermal_value'+s+'_'+str(t), cat='Continuous',lowBound = 0,upBound = self.data['thermal_capacity'][s] ) \
                                                             for s in self.data['satellite_id']  
                                                             for t in range(12*60*60)                               
-                         }
-        
-
+                                }
         
     def create_objective(self):
         #self.prob += 0
@@ -102,7 +100,7 @@ class GSpassSelection():
 
 
         
-        for s in self.data['satellite_id']:  
+        for s in self.data['satellite_id']:     
             for cs1g1k1 in self.data['SG1K1G2K2_pair']['sgk_list'][s]:
                 for cs2g2k2 in self.data['SG1K1G2K2_pair']['domain_of_csgk'][cs1g1k1]:
                     self.prob += self.theta_S2G['thethaS2G_'+s+'_'+cs1g1k1 + '_'+ cs2g2k2 ]* self.M + self.p['p_'+cs1g1k1] \

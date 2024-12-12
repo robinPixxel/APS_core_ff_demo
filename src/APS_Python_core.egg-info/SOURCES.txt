@@ -3,8 +3,6 @@ pyproject.toml
 setup.cfg
 setup.py
 src/APS_Python_core/__init__.py
-src/APS_Python_core/main.py
-src/APS_Python_core/main_old.py
 src/APS_Python_core/new_main.py
 src/APS_Python_core/result_interpret.py
 src/APS_Python_core/utils.py
@@ -18,6 +16,7 @@ src/APS_Python_core/6_validation/__init__.py
 src/APS_Python_core/model_3/MILP_GSpassSelection_v3.py
 src/APS_Python_core/model_3/MILP_downlink.py
 src/APS_Python_core/model_3/MILP_imageCapture_v3_17112024.py
+src/APS_Python_core/model_3/MILP_imageCapture_v3_17112024_copy.py
 src/APS_Python_core/model_3/__init__.py
 src/APS_Python_core/postprocess_4/__init__.py
 src/APS_Python_core/postprocess_4/image_capture_postprocess_V3_17112024.py
