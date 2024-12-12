@@ -6,13 +6,16 @@
                    "overlapping_constraints":true,
                    "active_assured_strip_id_constraint":false,
                    "power_constraints":true,
-                  "memory_constrant":true,
-                  "thermal_constraint_readout":false,
-                  "thermal_constraint_imaging":false},
+                  "camera_memory_constraint":true,
+                  "readout_constraint":true,
+                  "thermal_constraint_readout":true,
+                  "thermal_constraint_imaging":false,
+                  "memory_constrant":true},
     
-    "objective":{"GS_Pass_time":true,
+    "objective":{"GS_Pass_and_Imaging":true,
                  "total_priority":false,
-                "total_readout_memory":false},
+                "total_readout_memory":false,
+                "GS_Pass_time":true},
                 
     "thermal_parameters":{
                           "cameraDetector_heat_eqn":  "0.0000039805 * t**3 - 0.0020476 * t**2 + 0.4473 *t + 0.5265",
