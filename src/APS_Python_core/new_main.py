@@ -125,11 +125,12 @@ def select_img_opprtunity(image_opportunity_df,gs_pass_result_df,eclipse_df_dict
     config['objective']['total_readout_memory'] = False
     obj_model = ImageCapturePlan(data,config)
 
-    #Readout Schedule 
-    data['GS_Pass_time_objective'] = obj_model.prob.objective.value()
-    config['objective']['GS_Pass_and_Imaging'] = False
-    config['objective']['total_readout_memory'] = True
-    obj_model = ImageCapturePlan(data,config)
+    #Readout Schedule
+    if config['readout_schedule']:
+        data['GS_Pass_time_objective'] = obj_model.prob.objective.value()
+        config['objective']['GS_Pass_and_Imaging'] = False
+        config['objective']['total_readout_memory'] = True
+        obj_model = ImageCapturePlan(data,config)
 
     #++++++++++++++++++++++++++  PostProcess  +++++++++++++++++++++++++++++++++++++++++++++++
     post_obj = ImagecapturePostProcess(obj_model,data)

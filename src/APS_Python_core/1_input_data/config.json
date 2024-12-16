@@ -22,6 +22,7 @@
                           },
   "scheduled_Hrs":12,
   "downlink_schedule_OnlyJustsortImgID":true,
+  "readout_schedule":false,
   "GP_weight":0.4,
   "DDLP_weight":0.2,
   "CCLP_weight":0.1,
