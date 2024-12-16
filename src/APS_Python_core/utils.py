@@ -292,15 +292,15 @@ def evaluate_eqn(t,temp_eqn):
     return eval(temp_eqn,{'t':t})
 
 def get_bucketwise_safe_cool_time(initial_heat_temp,cooling_temp_eqn,interface_temp):
-
-    time_index_list = [i for i in range(0,12*3600)]
-    initial_temp_list = [initial_heat_temp]+[0 for i in range(1,12*3600)]
+    _time_hrs = 2
+    time_index_list = [i for i in range(0,_time_hrs*3600)]
+    initial_temp_list = [initial_heat_temp]+[0 for i in range(1,_time_hrs*3600)]
 
     df = pd.DataFrame({"time_index":time_index_list,\
             "initial_temp": initial_temp_list})
     
     save_dict = {}
-    for t_ind in range(0,12*3600,10):
+    for t_ind in range(0,_time_hrs*3600,10):
         delta_temp = evaluate_eqn(t_ind,cooling_temp_eqn )
         save_dict[t_ind] = delta_temp
         if initial_heat_temp + initial_heat_temp < interface_temp :
@@ -329,10 +329,10 @@ def get_thermal_bucket(initial_temp, temp_eqn ,cooling_temp_eqn,thermal_cap_temp
 
     return dict
     '''
-
-    time_index_list = [i for i in range(0,12*3600)]
-    initial_temp_list = [initial_temp]+[0 for i in range(1,12*3600)]
-    bucket_flag = [ [i]*10 for i in range(0,int(12*3600/10))]
+    _time_hrs = 2
+    time_index_list = [i for i in range(0,_time_hrs*3600)]
+    initial_temp_list = [initial_temp]+[0 for i in range(1,_time_hrs*3600)]
+    bucket_flag = [ [i]*10 for i in range(0,int(_time_hrs*3600/10))]
     bucket_flag = sum(bucket_flag,[]) # flattening
     
 
@@ -341,7 +341,7 @@ def get_thermal_bucket(initial_temp, temp_eqn ,cooling_temp_eqn,thermal_cap_temp
                 "initial_temp": initial_temp_list,\
                     "bucket_flag":bucket_flag})
     save_dict = {}
-    for t_ind in range(0,12*3600):
+    for t_ind in range(0,_time_hrs*3600):
         delta_temp = evaluate_eqn(t_ind,temp_eqn )
         save_dict[t_ind] = delta_temp
         if delta_temp + initial_temp >= thermal_cap_temp:
@@ -394,13 +394,13 @@ def get_thermal_bucket(initial_temp, temp_eqn ,cooling_temp_eqn,thermal_cap_temp
 
     return max_min_sct__bucket_flag 
 
-def get_prev_TW_index(to_get_prev_index_df,relavant_column = 'Memory_global_TW_index'):
+def get_prev_TW_index(to_get_prev_index_df,relavant_column = 'Memory_global_TW_index',grouping_column ='SatID'):
     rolling_window_len = len(to_get_prev_index_df)
     to_get_prev_index_df['prev_TW_index_list']= [x[relavant_column].values.tolist()[::-1] for x in to_get_prev_index_df.rolling(rolling_window_len)]
     to_get_prev_index_df['prev_endTime_list']= [x['end_time'].values.tolist()[::-1] for x in to_get_prev_index_df.rolling(rolling_window_len)]
 
     #to_get_prev_index_df['prev_TW_index_list'] = to_get_prev_index_df[['start_time','prev_TW_index_list','prev_endTime_list']].apply(lambda a : [a['prev_TW_index_list'][0]] + [v for i,v in enumerate(a['prev_TW_index_list']) if a['prev_endTime_list'][i] <= a['start_time']],axis=1)
-    to_get_prev_index_df['concat'] = to_get_prev_index_df['SatID'] + '_' + to_get_prev_index_df[relavant_column].astype(str)
+    to_get_prev_index_df['concat'] = to_get_prev_index_df[grouping_column] + '_' + to_get_prev_index_df[relavant_column].astype(str)
 
     this_dict = dict(zip(to_get_prev_index_df['concat'] ,to_get_prev_index_df['prev_TW_index_list'] ))
 

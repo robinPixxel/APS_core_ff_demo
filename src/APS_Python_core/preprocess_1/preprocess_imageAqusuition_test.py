@@ -103,8 +103,8 @@ class ImageAquisitionProcess:
         '''
 
         #Concating image and gspass table
-        selected_image_opportunity_df = self.image_opportunity_df[['SatID','encoded_stripId','OpportunityStartOffset','OpportunityEndOffset','Eclipse','TW_index']]
-        gsPass_df = self.gsPass_df[['SatID','gsID','start_time','end_time','Eclipse','TW_index']]
+        selected_image_opportunity_df = self.image_opportunity_df[['SatID','encoded_stripId','OpportunityStartOffset','OpportunityEndOffset','TW_index']]
+        gsPass_df = self.gsPass_df[['SatID','gsID','start_time','end_time','TW_index']]
         selected_image_opportunity_df.rename(columns = {'OpportunityStartOffset':'start_time','OpportunityEndOffset':'end_time'},inplace=True)
         imgGS_union_df = pd.concat([selected_image_opportunity_df,gsPass_df],join='outer')
         
@@ -239,7 +239,7 @@ class ImageAquisitionProcess:
         if check_l1!=check_l2:
             print("something is wrong in eclipse data or opprtunity start time or  end time")
 
-        memory_based_copy_df.drop(['start_time','end_time','Eclipse','EcStEnd_list'],axis=1,inplace=True)
+        memory_based_copy_df.drop(['start_time','end_time','EcStEnd_list'],axis=1,inplace=True)
         memory_based_copy_df.rename(columns={'new_start_time':'start_time','new_end_time':'end_time','new_eclipse':'Eclipse'},inplace=True)
         
         memory_based_copy_df = memory_based_copy_df.drop(['till_now_max','prev_max'], axis=1)
