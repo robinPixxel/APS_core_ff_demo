@@ -3,7 +3,7 @@ FF01,91429.0,92163.99999999994,no_i_no_g,no_i_no_g,Readout,888.0,-587.9999999999
 FF01,89594.0,89610.0,Order 57 - Strip 0_Area 36,,Imaging,132.0,112.0,NA,NA,1000.0,2002.468247449225,1000.0,2002.468247449225,Order 57 - Strip 0,Area 36,2024-11-13 12:30:44
 FF02,91482.0,91498.0,Order 53 - Strip 3_Area 36,,Imaging,132.0,112.0,NA,NA,1000.0,1029.3479669366313,1000.0,1029.3479669366313,Order 53 - Strip 3,Area 36,2024-11-13 12:30:44
 FF01,95314.0,95330.0,Order 30 - Strip 0_Area 27,,Imaging,1000.0,112.0,NA,NA,1000.0,771.4161434844327,1000.0,771.4161434844327,Order 30 - Strip 0,Area 27,2024-11-13 12:30:44
-FF02,102364.0,102380.0,Order 14 - Strip 3_Area 18,,Imaging,112.0,112.0,NA,NA,1000.0,766.9400916707901,1000.0,766.9400916707901,Order 14 - Strip 3,Area 18,2024-11-13 12:30:44
+FF02,102365.0,102382.0,Order 14 - Strip 1_Area 18,,Imaging,119.0,119.0,NA,NA,1000.0,775.1548524207172,1000.0,775.1548524207172,Order 14 - Strip 1,Area 18,2024-11-13 12:30:44
 FF03,104261.0,104278.0,Order 18 - Strip 1_Area 18,,Imaging,1000.0,119.0,NA,NA,1000.0,968.1029005123494,1000.0,968.1029005123494,Order 18 - Strip 1,Area 18,2024-11-13 12:30:44
 FF02,107731.0,107756.0,Order 44 - Strip 3_Area 35,,Imaging,175.0,175.0,NA,NA,750.0,962.8824056400784,750.0,939.6478291729554,Order 44 - Strip 3,Area 35,2024-11-13 12:30:44
 FF02,107955.0,107971.0,Order 4 - Strip 3_Area 0,,Imaging,287.0,112.0,NA,NA,750.0,1057.4442629414064,750.0,1057.4442629414064,Order 4 - Strip 3,Area 0,2024-11-13 12:30:44
@@ -24,7 +24,7 @@ FF01,159555.0,159572.0,Order 11 - Strip 1_Area 13,,Imaging,776.0,119.0,NA,NA,500
 FF01,159741.0,159773.0,Order 71 - Strip 1_Area 8,,Imaging,1000.0,224.0,NA,NA,500.0,1082.1205948552683,500.0,1082.1205948552683,Order 71 - Strip 1,Area 8,2024-11-13 12:30:44
 FF02,160664.0,160674.0,Order 29 - Strip 0_Area 26,,Imaging,70.0,70.0,NA,NA,500.0,1034.9904882573537,500.0,1034.9904882573537,Order 29 - Strip 0,Area 26,2024-11-13 12:30:44
 FF02,166424.0,166440.0,Order 28 - Strip 3_Area 24,,Imaging,112.0,112.0,NA,NA,500.0,1008.8863509200849,500.0,1008.8863509200849,Order 28 - Strip 3,Area 24,2024-11-13 12:30:44
-FF03,168898.0,168930.0,Order 23 - Strip 1_Area 23,,Imaging,224.0,224.0,NA,NA,750.0,983.1865355442109,750.0,983.1865355442109,Order 23 - Strip 1,Area 23,2024-11-13 12:30:44
+FF03,168899.0,168924.0,Order 23 - Strip 0_Area 23,,Imaging,175.0,175.0,NA,NA,750.0,960.0817964349341,750.0,960.0817964349341,Order 23 - Strip 0,Area 23,2024-11-13 12:30:44
 FF03,175180.0,175196.0,Order 59 - Strip 3_Area 36,,Imaging,1000.0,112.0,NA,NA,1000.0,939.4260052454586,1000.0,939.4260052454586,Order 59 - Strip 3,Area 36,2024-11-13 12:30:44
 FF01,87651.0,88294.0,,SVALBARD01,downlinking_from_Readout,20.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
 FF02,89578.0,90217.0,,SVALBARD01,downlinking_from_Readout,20.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
@@ -89,8 +89,8 @@ FF01,167058.0,167651.0,,AWARUA01,downlinking_from_Readout,0.0,0.0,NA,NA,no_i_no_
 FF03,167464.0,167651.0,,SVALBARD01,downlinking_from_Readout,0.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
 FF02,168967.0,169611.0,,AWARUA01,downlinking_from_Readout,0.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
 FF01,169392.0,169611.0,,SVALBARD01,downlinking_from_Readout,0.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
-FF03,170892.0,171538.0,,AWARUA01,downlinking_from_Readout,224.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,170892.0,171538.0,,AWARUA01,downlinking_from_Readout,175.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
 FF02,171322.0,171538.0,,SVALBARD01,downlinking_from_Readout,0.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
-FF03,172416.0,172815.0,,JEJU01,downlinking_from_Readout,224.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
+FF03,172416.0,172815.0,,JEJU01,downlinking_from_Readout,175.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
 FF03,173249.99999999997,173893.99999999997,,SVALBARD01,downlinking_from_Readout,888.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44
 FF03,176766.0,177105.0,,AWARUA01,downlinking_from_Readout,0.0,0.0,NA,NA,no_i_no_g,no_i_no_g,no_i_no_g,no_i_no_g,,,2024-11-13 12:30:44

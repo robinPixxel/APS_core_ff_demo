@@ -303,7 +303,7 @@ def get_bucketwise_safe_cool_time(initial_heat_temp,cooling_temp_eqn,interface_t
     for t_ind in range(0,_time_hrs*3600,10):
         delta_temp = evaluate_eqn(t_ind,cooling_temp_eqn )
         save_dict[t_ind] = delta_temp
-        if initial_heat_temp + initial_heat_temp < interface_temp :
+        if initial_heat_temp + delta_temp < interface_temp :
             break
 
     df = df[ df['time_index'] < t_ind ]
@@ -318,7 +318,7 @@ def get_bucketwise_safe_cool_time(initial_heat_temp,cooling_temp_eqn,interface_t
     df['cumm_cool'] = df['proxy_cool']#.cumsum()
 
     df = df[df['cumm_cool'] >=interface_temp]
-
+    #print(df)
     max_temp_sec = df['time_index'].max()
 
     return max_temp_sec
@@ -383,9 +383,9 @@ def get_thermal_bucket(initial_temp, temp_eqn ,cooling_temp_eqn,thermal_cap_temp
         safe_cool_time_list.append(get_bucketwise_safe_cool_time(initial_heat_temp,cooling_temp_eqn,initial_temp))
     df_cool['safe_cool_time'] = safe_cool_time_list
     df_cool['safe_cool_time'] = df_cool['safe_cool_time'].fillna(1)
-    
+    #print(df_cool[df_cool['time_index'].isin([i for i in range(700,800)])])
     df_cool = df_cool[['bucket_flag','max_time','min_time','safe_cool_time']]
-
+    
     df_cool['list'] = df_cool[['bucket_flag','max_time','min_time','safe_cool_time']].\
         apply(lambda a : [a['min_time'],a['max_time'],a['safe_cool_time']],axis = 1)
     
