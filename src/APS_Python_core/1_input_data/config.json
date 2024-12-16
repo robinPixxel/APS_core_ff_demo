@@ -1,6 +1,6 @@
 
 { 
-    "constraints":{"Thermal_constraints_GS_pass":false,          
+    "constraints":{"Thermal_constraints_GS_pass":true,          
                    "overlapping_constraints":true,
                    "active_assured_strip_id_constraint":false,
                    "power_constraints":true,
@@ -15,14 +15,14 @@
     "thermal_parameters":{
                           "cameraDetector_heat_eqn":  "0.0000039805 * t**3 - 0.0020476 * t**2 + 0.4473 *t + 0.5265",
                           "cameraDetector_cool_eqn" : "-0.00000047625 * t**3 + 0.000579 * t**2 - 0.24 * t -3.43",
-                          "XBT_heat_eqn" : "-0.0000001075462963 * t**3 + 0.000061 * t**2  - 0.04186666667*t -1.964",
+                          "XBT_heat_eqn" : "-0.0000001075462963 * t**3 + 0.000061 * t**2  + 0.04186666667*t -1.964",
                           "XBT_cool_eqn" :"-0.00059386 * t**3 + 0.051754 * t**2 - 1.6882*t + 1.4488",
                           "NCCM_heat_eqn": "0.0000000728690314 * t**3 - 0.000138692964 * t**2 + 0.103057817 * t  + 1.88504399 ",
                           "NCCM_cool_eqn" : "-0.34 * t**3 "       
                           },
   "scheduled_Hrs":12,
   "downlink_schedule_OnlyJustsortImgID":true,
-  "readout_schedule":false,
+  "readout_schedule":true,
   "GP_weight":0.4,
   "DDLP_weight":0.2,
   "CCLP_weight":0.1,
