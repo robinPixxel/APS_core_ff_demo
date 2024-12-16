@@ -7,7 +7,7 @@ Number_of_Strips,210.0,26.0,Excluding_oppr_gs_pass_conflicts,12.380952380952381,
 Number_of_AoiID,17.0,15.0,Excluding_oppr_gs_pass_conflicts,88.23529411764706,2024-11-13 12:30:44
 normalized_GlobalPriority,172000.0,20500.0,Excluding_oppr_gs_pass_conflicts,11.918604651162791,2024-11-13 12:30:44
 normalized_local_priority_due_date,178915.5980564917,22539.09740920687,Excluding_oppr_gs_pass_conflicts,12.597614547888814,2024-11-13 12:30:44
-Weighted_normalized_Total_priority,106677.0,13748.0,Excluding_oppr_gs_pass_conflicts,12.887501523289933,2024-11-13 12:30:44
+Weighted_normalized_Total_priority,106677.0,13749.0,Excluding_oppr_gs_pass_conflicts,12.888438932478415,2024-11-13 12:30:44
 top_25%_normalized_GlobalPriority_Strips,98.0,11.0,Excluding_oppr_gs_pass_conflicts,11.224489795918368,2024-11-13 12:30:44
 top_50%_normalized_GlobalPriority_Strips,172.0,19.0,Excluding_oppr_gs_pass_conflicts,11.046511627906977,2024-11-13 12:30:44
 top_75%_normalized_GlobalPriority_Strips,172.0,19.0,Excluding_oppr_gs_pass_conflicts,11.046511627906977,2024-11-13 12:30:44

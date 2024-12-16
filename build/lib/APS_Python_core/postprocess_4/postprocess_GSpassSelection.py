@@ -154,22 +154,25 @@ class GSpasspostprocess():
         o['concat_sat_gs_k'] = o['SatID'].astype(str)  + '_' + o['gsID'].astype(str)  + '_' +o['TW_index'].astype(str) 
         o['AOSoffset'] = o['concat_sat_gs_k'].map(self.model_input_data['get_AOS'])
         o['LOSoffset'] = o['concat_sat_gs_k'].map(self.model_input_data['get_LOS'])
-
-        if self.config['constraints']['Thermal_constraints_GS_pass']:
-            thermal_value = self.to_check_thermal_constraint(o)
-            thermal_value1 = thermal_value[thermal_value['flag'] == 'heat']
-
-            thermal_value2 = thermal_value1.groupby(['SatID','gsID']).agg(list_time_index= ('time_index',list)).reset_index()
-            #print(thermal_value2)
+        thermal_value2 = o
+        thermal_value =''
             
-            thermal_value2['list'] = thermal_value2['list_time_index'].apply(  get_time_list )
 
-            thermal_value2 = thermal_value2.explode('list')
-            thermal_value2['start_time'] = thermal_value2['list'].apply(lambda a: a[0])
-            thermal_value2['end_time'] = thermal_value2['list'].apply(lambda a: a[-1])
-        else:
-            thermal_value2 = o
-            thermal_value =''
+        # if self.config['constraints']['Thermal_constraints_GS_pass']:
+        #     thermal_value = self.to_check_thermal_constraint(o)
+        #     thermal_value1 = thermal_value[thermal_value['flag'] == 'heat']
+
+        #     thermal_value2 = thermal_value1.groupby(['SatID','gsID']).agg(list_time_index= ('time_index',list)).reset_index()
+        #     #print(thermal_value2)
+            
+        #     thermal_value2['list'] = thermal_value2['list_time_index'].apply(  get_time_list )
+
+        #     thermal_value2 = thermal_value2.explode('list')
+        #     thermal_value2['start_time'] = thermal_value2['list'].apply(lambda a: a[0])
+        #     thermal_value2['end_time'] = thermal_value2['list'].apply(lambda a: a[-1])
+        # else:
+        #     thermal_value2 = o
+        #     thermal_value =''
             
 
         return thermal_value2,thermal_value

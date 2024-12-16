@@ -1,6 +1,6 @@
 
 { 
-    "constraints":{"Thermal_constraints_GS_pass":true,          
+    "constraints":{"Thermal_constraints_GS_pass":false,          
                    "overlapping_constraints":true,
                    "active_assured_strip_id_constraint":false,
                    "power_constraints":true,

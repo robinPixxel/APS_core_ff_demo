@@ -2,18 +2,19 @@
 # X['r'] = X.groupby('a')['b'].rank(method='dense')
 import pandas as pd
 from APS_Python_core.utils import get_flag_for_gs_pass
-from APS_Python_core.utils import get_conflicting_dict
+from APS_Python_core.utils import get_conflicting_dict,get_thermal_bucket,get_prev_TW_index
 
 class GSPassPreprocess:
-    def __init__(self, GS_pass_df):
+    def __init__(self, GS_pass_df,config):
         '''
-        GS_pass_df : ['GsID', 'AOS', 'LOS', 'SatID', 'AOSOffset', 'LOSOffset', 'Eclipse']
+        GS_pass_df : ['GsID', 'AOS', 'LOS', 'SatID', 'AOSOffset', 'LOSOffset']
         '''
         self.GS_pass_df = GS_pass_df
         self.GS_pass_df['SatID'] = self.GS_pass_df['SatID'].astype(str)
         self.GS_pass_df['GsID'] = self.GS_pass_df['GsID'].astype(str)
         self.setup_time_S2G = 120 
         self.setup_time_G2S = 120 
+        self.config = config
         
         self.data = {}   
 
@@ -99,11 +100,6 @@ class GSPassPreprocess:
         self.data['GS1K1S2K2_pair']['domain_of_csgk'] = {}
         self.data['SG1K1G2K2_pair']['domain_of_csgk'] = get_conflicting_dict(self.GS_pass_df,self.data['GS1K1S2K2_pair']['domain_of_csgk'],self.setup_time_G2S)
                    
-
-
-        #self.get_conflicting_dict(self.setup_time_S2G, 'GsID','SatID','SG1K1G2K2_pair')
-        #self.get_conflicting_dict(self.setup_time_G2S )
-
              
         self.data['get_satellite'] =  dict(zip(self.GS_pass_df['concat_gsid_satid'],\
                                                   self.GS_pass_df['SatID']))
@@ -114,17 +110,46 @@ class GSPassPreprocess:
                                                   self.GS_pass_df['AOSOffset']))
         self.data['get_LOS'] = dict(zip(self.GS_pass_df['concat_gsid_satid_TWIndex'],\
                                                   self.GS_pass_df['LOSOffset']))
+               
         
         # initial_thermal_value_and capacity
         self.data['thermal_capacity'] = {s: 70 for s in self.data['satellite_id']}
         self.data['initial_thermal_value'] = {s: 20 for s in self.data['satellite_id']}
 
-    
+    def get_thermal_constraints_data(self):
+        print("=====GA pASS THERMAL======")
+        if self.config['constraints']['Thermal_constraints_GS_pass']:
+            self.data['heatTimeBucket_SCT_dict__s'] = {
+                                        s : get_thermal_bucket(self.data['initial_thermal_value'][s], \
+                                        self.config['thermal_parameters']['XBT_heat_eqn'] ,\
+                                        self.config['thermal_parameters']['XBT_cool_eqn'],\
+                                        self.data['thermal_capacity'][s]) \
+                                        for s in self.data['satellite_id']
+                                        }
+        
+            self.data['max_XBT_heat_dict'] = {s : self.data['heatTimeBucket_SCT_dict__s'][s]['max_time_heat'] \
+                                              for s in self.data['satellite_id'] }
+        
+            for s in self.data['satellite_id'] :
+                del self.data['heatTimeBucket_SCT_dict__s'][s]['max_time_heat']
+            print(self.data['heatTimeBucket_SCT_dict__s'],self.data['heatTimeBucket_SCT_dict__s'])
+            self.data['prev_tWList__s_TWI_dict__s'] = {}
+            GS_pass_df_copy = self.GS_pass_df.copy()
+            GS_pass_df_copy.rename(columns={'AOSOffset':'start_time','LOSOffset':'end_time'},inplace=True)
+            GS_pass_df_copy.sort_values(["concat_gsid_satid","start_time"],inplace=True) # not necessary by satellite as we are filtering satellite 
+            print(len(self.data['satellite_id']))
+            for s in self.data['satellite_id']:
+                to_get_prev_index_df =GS_pass_df_copy[GS_pass_df_copy['SatID']==s]
+                #for global s_TWI
+                self.data['prev_tWList__s_TWI_dict__s'][s] = get_prev_TW_index(to_get_prev_index_df,'TW_rank','concat_gsid_satid')
+            self.GS_pass_df['list'] = self.GS_pass_df[['GsID','SatID','TW_rank','AOSOffset','LOSOffset']].apply(lambda a : [a['SatID'],a['GsID'],a['TW_rank'],a['AOSOffset'],a['LOSOffset']],axis=1)
+            self.data['prev_thermal_list'] = list(self.GS_pass_df['list'])
+
     def preprocess(self):
         
         self.create_dict()
         
-        #self.get_temporal_data()
+        self.get_thermal_constraints_data()
        
         return self.data
         
