@@ -457,7 +457,7 @@ class ImageCapturePlan():
                     
                     
                 else:
-                    print(s,n)
+                    #print(s,n)
                     self.prob += self.delta_power_value['delta_power_value'+s+'_'+str(n)] >= 115 * self.PtPG['Power_generation_'+s+'_'+str(n)] - 28.1 * (et_W - st_W) - self.M * self.GP['ground_PAss_happens_'+s+'_'+str(n)]
                     self.prob += self.delta_power_value['delta_power_value'+s+'_'+str(n)] <= 115 * self.PtPG['Power_generation_'+s+'_'+str(n)] - 28.1 * (et_W - st_W) + self.M * self.GP['ground_PAss_happens_'+s+'_'+str(n)]
 
