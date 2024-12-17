@@ -303,7 +303,7 @@ def get_bucketwise_safe_cool_time(initial_heat_temp,cooling_temp_eqn,interface_t
     for t_ind in range(0,_time_hrs*3600,10):
         delta_temp = evaluate_eqn(t_ind,cooling_temp_eqn )
         save_dict[t_ind] = delta_temp
-        if initial_heat_temp + initial_heat_temp < interface_temp :
+        if initial_heat_temp + delta_temp < interface_temp :
             break
 
     df = df[ df['time_index'] < t_ind ]
@@ -318,7 +318,7 @@ def get_bucketwise_safe_cool_time(initial_heat_temp,cooling_temp_eqn,interface_t
     df['cumm_cool'] = df['proxy_cool']#.cumsum()
 
     df = df[df['cumm_cool'] >=interface_temp]
-
+    #print(df)
     max_temp_sec = df['time_index'].max()
 
     return max_temp_sec
@@ -368,7 +368,7 @@ def get_thermal_bucket(initial_temp, temp_eqn ,cooling_temp_eqn,thermal_cap_temp
 
     df_grouped_ = df.groupby(['bucket_flag']).agg(max_time=('time_index','max'),\
                                     min_time = ('time_index','min')).reset_index()
-    #print(df,df_grouped_,"===2=====")
+    #print(df.head(50),df_grouped_.head(60),"===2=====")
     
     
     df_heat = pd.merge(df,df_grouped_,on='bucket_flag',how='left')
@@ -382,12 +382,14 @@ def get_thermal_bucket(initial_temp, temp_eqn ,cooling_temp_eqn,thermal_cap_temp
     for initial_heat_temp in initial_heat_list:
         safe_cool_time_list.append(get_bucketwise_safe_cool_time(initial_heat_temp,cooling_temp_eqn,initial_temp))
     df_cool['safe_cool_time'] = safe_cool_time_list
-    
+    df_cool['safe_cool_time'] = df_cool['safe_cool_time'].fillna(1)
+    #print(df_cool[df_cool['time_index'].isin([i for i in range(700,800)])])
     df_cool = df_cool[['bucket_flag','max_time','min_time','safe_cool_time']]
-
+    
     df_cool['list'] = df_cool[['bucket_flag','max_time','min_time','safe_cool_time']].\
         apply(lambda a : [a['min_time'],a['max_time'],a['safe_cool_time']],axis = 1)
-   
+    
+    #print(df_cool.head(50))
     max_min_sct__bucket_flag = dict(zip(df_cool['bucket_flag'],df_cool['list']))
     max_min_sct__bucket_flag['max_time_heat'] = t_ind - 1
 
@@ -401,7 +403,6 @@ def get_prev_TW_index(to_get_prev_index_df,relavant_column = 'Memory_global_TW_i
 
     #to_get_prev_index_df['prev_TW_index_list'] = to_get_prev_index_df[['start_time','prev_TW_index_list','prev_endTime_list']].apply(lambda a : [a['prev_TW_index_list'][0]] + [v for i,v in enumerate(a['prev_TW_index_list']) if a['prev_endTime_list'][i] <= a['start_time']],axis=1)
     to_get_prev_index_df['concat'] = to_get_prev_index_df[grouping_column] + '_' + to_get_prev_index_df[relavant_column].astype(str)
-
     this_dict = dict(zip(to_get_prev_index_df['concat'] ,to_get_prev_index_df['prev_TW_index_list'] ))
 
     return this_dict

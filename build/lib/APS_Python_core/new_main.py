@@ -52,6 +52,8 @@ def select_gs_pass_oppr(GS_pass_df,config):
     obj_preprocess = GSPassPreprocess(GS_pass_df,config)
     data = obj_preprocess.preprocess()
     #print(data['SG1K1G2K2_pair']['domain_of_csgk'])
+    #print(max([v[2]  for s in data['satellite_id'] for k,v in data['heatTimeBucket_SCT_dict__s'][s].items() if v[1]<=650]))
+    #print([v for s in data['satellite_id'] for k,v in data['heatTimeBucket_SCT_dict__s'][s].items() if s=='FF01'])
     print("optimization_model_starts")
     obj_model = GSpassSelection(data,config)
     result,thermal_profile_gsPass = GSpasspostprocess(obj_model,data,config).get_gsPasses()# 21 seconds
@@ -370,6 +372,7 @@ def get_schedule(config,GS_pass_df,image_opportunity_df,image_downlink_df,eclips
     gs_pass_result_df['Eclipse'] = 1 ## dummy
     gs_pass_result_df['duration'] = gs_pass_result_df['end_time'] - gs_pass_result_df['start_time']
     gs_pass_result_df = gs_pass_result_df[gs_pass_result_df['duration']> 0]
+    print(gs_pass_result_df['concat_sat_gs_k'].nunique())
     interpret_gs_pass_result_df_copy = gs_pass_result_df.copy()# this not the gsPass result as it is to be get filtered after due to other factors in image capture plan.It is just to get require info in interpret result.
 
     print("image_capture_plan_starting")

@@ -65,7 +65,7 @@ class GSpassSelection():
         #                         }
         
         if self.config['constraints']['Thermal_constraints_GS_pass']:
-            self.beta_gs = {'bucket_HZ_'+csg+'_'+str(k)+'_'+str(bi) :LpVariable('bucket_HZ_'+csg+'_'+str(k)+str(bi),cat = 'Binary') \
+            self.beta_gs = {'bucketC_HZ_'+csg+'_'+str(k)+'_'+str(bi) :LpVariable('bucketC_HZ_'+csg+'_'+str(k)+str(bi),cat = 'Binary') \
                              for csg in self.data['Concat_SatIdGSID']\
                                 for k in self.data['TW_index_list_SatIdGSID'][csg]\
                                     for bi in self.data['heatTimeBucket_SCT_dict__s'][self.data['get_satellite'][csg]].keys()}
@@ -81,7 +81,7 @@ class GSpassSelection():
         # self.prob += obj + self.Z
             
         self.prob += lpSum(self.p['p_'+csg + '_'+ str(k)] for csg in self.data['Concat_SatIdGSID']\
-                          for k in self.data['TW_index_list_SatIdGSID'][csg]) + self.Z 
+                          for k in self.data['TW_index_list_SatIdGSID'][csg])  + self.Z 
 
 
     def create_constraints(self):
@@ -129,38 +129,45 @@ class GSpassSelection():
 
                 
         if self.config['constraints']['Thermal_constraints_GS_pass']:
-                for s in self.data['satellite_id']:
-                    for csg in self.data['csgList_s'][s]:
-                        for k in self.data['TW_index_list_SatIdGSID'][csg]:
-                            et_W = self.data['TW_csgk'][csg + '_'+ str(k)][1] 
-                            st_W = self.data['TW_csgk'][csg + '_'+ str(k)][0]
-                            self.prob += et_W - st_W <= self.data['max_XBT_heat_dict'][s] + self.M *(1-self.x['x_'+csg + '_'+ str(k)])
+            for s in self.data['satellite_id']:
+                for csg in self.data['csgList_s'][s]:
+                    for k in self.data['TW_index_list_SatIdGSID'][csg]:
+                        et_W = self.data['TW_csgk'][csg + '_'+ str(k)][1] 
+                        st_W = self.data['TW_csgk'][csg + '_'+ str(k)][0]
+                        self.prob += self.p['p_'+csg + '_'+ str(k)] <= self.data['max_XBT_heat_dict'][s] + self.M *(1-self.x['x_'+csg + '_'+ str(k)])
 
-                            ptw_list_ = self.data['prev_tWList__s_TWI_dict__s'][s][csg+'_'+str(k)]
-                            print(ptw_list_,self.data['heatTimeBucket_SCT_dict__s'][s])
-                            for p in ptw_list_[1:]:
-                                #self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + 140 - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)])#TODO2
-                                prev_index_list = [ [only_img_case[1],only_img_case[3],only_img_case[4]] for only_img_case in self.data['prev_thermal_list'] if ((only_img_case[2]==p) and (only_img_case[0]==s))  ] 
+                        ptw_list_ = self.data['prev_tWList__s_TWI_dict__s'][s][csg+'_'+csg+'_'+str(k)]
+                        #print(self.beta_gs.keys())
+                        for csgk_p in ptw_list_[1:]:
+                            #self.prob += self.ZS['readout_start_time_'+s+'_'+str(n)] >= self.ZE['readout_end_time_'+s+'_'+str(p)] + 140 - self.M * (1- self.XR['readout_happens'+s+'_'+str(p)])#TODO2
+                            prev_index_list = [ [only_img_case[3],only_img_case[4],only_img_case[1],only_img_case[5]] for only_img_case in self.data['prev_thermal_list'] if ((only_img_case[2]==csgk_p) and (only_img_case[0]==s)) ] 
+                        
+                            et_W_p = prev_index_list[0][1]
+                            st_W_p = prev_index_list[0][0]
+                            p = prev_index_list[0][3]
+                            csg_p = prev_index_list[0][2]
                             
-                                et_W_p = prev_index_list[0][2]
-                                st_W_p = prev_index_list[0][1]
-                                gs_p = prev_index_list[0][0]
-                
-                                self.prob += st_W >= et_W_p+ \
-                                                    lpSum([self.beta_gs['bucketC_HZ_'+csg+'_'+str(p)+'_'+str(bi) ] * v[2] \
-                                                        for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items()])\
-                                                    - self.M * (1- self.x['x_'+csg + '_'+ str(k)]) \
-                                                    - self.M * (1- self.x['x_'+s+'_'+gs_p + '_'+ str(p)])
-                                
-                                self.prob += lpSum([self.beta_gs['bucketC_HZ_'+csg+'_'+str(p)+'_'+str(bi) ] 
-                                                    for bi in self.data['heatTimeBucket_SCT_dict__s'][s].keys()]) == 1
-                                
-                                for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items():
-                                    self.prob += et_W_p -  st_W_p\
-                                                >= v[0] - self.M * (1- self.beta_gs['bucketC_HZ_'+csg+'_'+str(p)+'_'+str(bi) ] )
-                                    self.prob += et_W_p -  st_W_p\
-                                                <= v[1] + self.M * (1- self.beta_gs['bucketC_HZ_'+csg+'_'+str(p)+'_'+str(bi) ])
-            
+                            self.prob += self.t_d['st_'+csg + '_'+ str(k)] >= self.t_d['st_'+csg_p + '_'+ str(p)] +self.p['p_'+csg_p + '_'+ str(p)]  + \
+                                                lpSum([self.beta_gs['bucketC_HZ_'+csg_p+'_'+str(p)+'_'+str(bi) ] * v[2] \
+                                                    for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items()])\
+                                                - self.M * (1- self.x['x_'+csg + '_'+ str(k)]) \
+                                                - self.M * (1- self.x['x_'+csg_p+ '_'+ str(p)])
+                            
+                            # self.prob += st_W >= et_W_p + \
+                            #                     lpSum([self.beta_gs['bucketC_HZ_'+csg_p+'_'+str(p)+'_'+str(bi) ] * v[2] \
+                            #                         for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items()])\
+                            #                     - self.M * (1- self.x['x_'+csg + '_'+ str(k)]) \
+                            #                     - self.M * (1- self.x['x_'+csg_p+ '_'+ str(p)])
+                            
+                            self.prob += lpSum([self.beta_gs['bucketC_HZ_'+csg_p+'_'+str(p)+'_'+str(bi) ] 
+                                                for bi in self.data['heatTimeBucket_SCT_dict__s'][s].keys()]) == 1
+                            
+                            for bi,v in self.data['heatTimeBucket_SCT_dict__s'][s].items():
+                                self.prob += self.p['p_'+csg_p + '_'+ str(p)]\
+                                            >= v[0] - self.M * (1- self.beta_gs['bucketC_HZ_'+csg_p+'_'+str(p)+'_'+str(bi) ] )
+                                self.prob += self.p['p_'+csg_p + '_'+ str(p)]\
+                                            <= v[1] + self.M * (1- self.beta_gs['bucketC_HZ_'+csg_p+'_'+str(p)+'_'+str(bi) ])
+        
     def solve_model(self):
         print("start_solving")
         # status = self.prob.solve(PULP_CBC_CMD(msg=False ))

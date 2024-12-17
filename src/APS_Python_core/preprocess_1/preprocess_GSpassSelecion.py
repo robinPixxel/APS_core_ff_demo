@@ -136,13 +136,14 @@ class GSPassPreprocess:
             self.data['prev_tWList__s_TWI_dict__s'] = {}
             GS_pass_df_copy = self.GS_pass_df.copy()
             GS_pass_df_copy.rename(columns={'AOSOffset':'start_time','LOSOffset':'end_time'},inplace=True)
-            GS_pass_df_copy.sort_values(["concat_gsid_satid","start_time"],inplace=True) # not necessary by satellite as we are filtering satellite 
+            GS_pass_df_copy.sort_values(["start_time"],inplace=True) # not necessary by satellite as we are filtering satellite 
     
             for s in self.data['satellite_id']:
-                to_get_prev_index_df =GS_pass_df_copy[GS_pass_df_copy['SatID']==s]
+                to_get_prev_index_df = GS_pass_df_copy[GS_pass_df_copy['SatID']==s]
                 #for global s_TWI
-                self.data['prev_tWList__s_TWI_dict__s'][s] = get_prev_TW_index(to_get_prev_index_df,'TW_rank','concat_gsid_satid')
-            self.GS_pass_df['list'] = self.GS_pass_df[['concat_gsid_satid','SatID','TW_rank','AOSOffset','LOSOffset']].apply(lambda a : [a['SatID'],a['concat_gsid_satid'],a['TW_rank'],a['AOSOffset'],a['LOSOffset']],axis=1)
+                self.data['prev_tWList__s_TWI_dict__s'][s] = get_prev_TW_index(to_get_prev_index_df,'concat_gsid_satid_TWIndex','concat_gsid_satid')
+            #print(self.data['prev_tWList__s_TWI_dict__s'])
+            self.GS_pass_df['list'] = self.GS_pass_df[['concat_gsid_satid','SatID','concat_gsid_satid_TWIndex','AOSOffset','LOSOffset','TW_rank']].apply(lambda a : [a['SatID'],a['concat_gsid_satid'],a['concat_gsid_satid_TWIndex'],a['AOSOffset'],a['LOSOffset'],a['TW_rank']],axis=1)
             self.data['prev_thermal_list'] = list(self.GS_pass_df['list'])
 
     def preprocess(self):
