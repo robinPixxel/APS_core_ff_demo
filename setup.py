@@ -6,7 +6,7 @@ setup(
     packages=find_packages("src"),
     package_dir={"": "src"},
     install_requires = ['highspy==1.8.1',
-'pandas==2.2.3',
+# 'pandas==2.2.3',
 'PuLP==2.9.0',
 'python-dateutil==2.9.0.post0',
 'pytz==2024.2',
