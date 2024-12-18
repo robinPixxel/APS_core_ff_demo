@@ -394,9 +394,9 @@ def get_schedule(config,GS_pass_df,image_opportunity_df,image_downlink_df,eclips
     # downlink_result.to_csv("APS_Python_core/src/APS_Python_core/5_output_data/downlink_result.csv",index = None)
 
     interpret_image_opportunity_df = original_image_opportunity_df
-    interpret_result_dict = interpret_result(interpret_image_opportunity_df,interpret_gs_pass_result_df_copy,interpret_img_capture_resul_copy,config)
-    for k,v in interpret_result_dict.items():
-        v['base_time'] = config['base_time_stamp_downlink']
+    # interpret_result_dict = interpret_result(interpret_image_opportunity_df,interpret_gs_pass_result_df_copy,interpret_img_capture_resul_copy,config)
+    # for k,v in interpret_result_dict.items():
+    #     v['base_time'] = config['base_time_stamp_downlink']
         #v.to_csv("APS_Python_core/src/APS_Python_core/5_output_data/"+k+".csv",index = None)
     
     only_img_capture_result = img_capture_result[img_capture_result['operation']=='Imaging'][['SatID','start_time','end_time','AoiID','StripID','base_time']]
@@ -418,6 +418,6 @@ def get_schedule(config,GS_pass_df,image_opportunity_df,image_downlink_df,eclips
                   "only_img_capture_result":only_img_capture_result,\
                   "only_gsPass_result":only_gsPass_result,\
                   "combined_result":img_capture_result}
-    result_dict.update(interpret_result_dict)
+    # result_dict.update(interpret_result_dict)
     #return result_dict
     return result_dict
