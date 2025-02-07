@@ -1,0 +1,17 @@
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --disable-pytest-warnings -vv --cov"
+testpaths = [
+    "tests",
+]
+
+pythonpath = [
+    "src",
+    "tests",
+]
+
+[tool.black]
+include = '\.pyi?$'
+
+[tool.isort]
+skip = ["./docs/conf.py"]

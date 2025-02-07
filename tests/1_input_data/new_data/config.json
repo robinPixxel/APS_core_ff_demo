@@ -1,0 +1,25 @@
+
+{ 
+    "constraints":{"Thermal_constraints_GS_pass":false,          
+                   "overlapping_constraints":true,
+                   "power_constraints":true,
+                  "camera_memory_constraint":true,
+                  "readout_constraint":true,
+                  "thermal_constraint_readout":false,
+                  "thermal_constraint_imaging":false},
+    
+    "objective":{"GS_Pass_and_Imaging":true,
+                "total_readout_memory":false},
+                
+                          
+  "downlink_schedule_OnlyJustsortImgID":false,
+  "readout_schedule":true,
+  "GP_weight":0.4,
+  "DDLP_weight":0.2,
+  "CCLP_weight":0.1,
+  "ONLP_weight":0.3,
+  "min_readout_time_seconds":50,
+  "timeLimit" : 180
+  }
+
+
