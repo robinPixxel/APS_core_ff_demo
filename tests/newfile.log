@@ -1,0 +1,27 @@
+2025-02-05 12:12:29,394 get_input_function_call
+2025-02-05 12:12:29,454 some_error_in_eclipse_data_So_hard_coded_eclipse_data
+2025-02-05 12:12:29,528 gs pass_selection_module_start
+2025-02-05 12:12:29,528 gs_Pass_Preprocess_start
+2025-02-05 12:12:29,618 =====GA pASS THERMAL======
+2025-02-05 12:12:29,618 gs_Pass_Preprocessing_time_taken=0.09021615982055664
+2025-02-05 12:12:29,618 gs_Pass_optimization_model_starts
+2025-02-05 12:12:29,628 GS-Pass-Selection-status=Optimal
+2025-02-05 12:12:29,628 gs_Pass_optimization_model_time_taken=0.010281801223754883
+2025-02-05 12:12:29,630 image_capture_plan_module_start
+2025-02-05 12:12:29,630 select_img_opprtunity_Preprocess_start
+2025-02-05 12:12:29,843 len_of_unique_base_time=1
+2025-02-05 12:12:31,029 len_before_eclipse_transition_divide=450
+2025-02-05 12:12:31,029 len_after(after explode)_eclipse_transition_divide=532
+2025-02-05 12:12:31,032 len_power_same_as_memory_global_tw_index_df=386
+2025-02-05 12:12:31,032 len_power_different_from_memory_global_tw_index_df=146
+2025-02-05 12:12:31,065 select_img_opprtunity_optimization_model_GS_Pass_and_Imaging_start
+2025-02-05 12:12:31,326 status_image_capture_plan_1=Optimal
+2025-02-05 12:12:31,326 select_img_opprtunity_optimization_model_total_readout_memory_start
+2025-02-05 12:12:42,073 status_image_capture_plan_1=Optimal
+2025-02-05 12:12:42,076 Downlink_plan_module_start
+2025-02-05 12:12:42,076 get_downlink_schedule_preprocess_starts
+2025-02-05 12:12:42,083 downlink_schedule_more_optimized_at_tilestrip_level_starts
+2025-02-05 12:12:42,094 Downlink Schedule optimized=Optimal
+2025-02-05 12:12:42,096 interpret_results_starts
+2025-02-05 12:12:42,438 ALL RESULTS relavant columns Selection
+2025-02-05 12:12:48,973 Loaded backend macosx version unknown.
